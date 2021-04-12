@@ -2,15 +2,16 @@ package ui;
 
 import java.util.Scanner;
 
+import model.Game;
+
 public class Main {
 	static Scanner entry = new Scanner(System.in);
+	
+	static Game game;
 
 	public static void main(String[] args) {
-		showMenu();
-		try {
-			chooseMenuOption(Integer.parseInt(entry.nextLine()));
-		}catch(NumberFormatException e) {System.out.println("Opcion invalida");}
-
+		game=new Game();
+		showAndChoose();
 	}
 	
 //Method that shows the menu with the three options
@@ -25,11 +26,39 @@ public class Main {
 	public static void chooseMenuOption(int optionNumber) {
 		switch(optionNumber) {
 			case 1:
-				//REALIZAR TODO LO QUE SERÍA DEL JUEGO
+				System.out.println("Cuantas Filas?");
+				int filas=Integer.parseInt(entry.nextLine());
+				
+				System.out.println("Cuantas Columnas?");
+				int columnas=Integer.parseInt(entry.nextLine());
+				
+				int casillas= filas*columnas;
+				game.getGrid().setCounterBoxes(casillas);
+				
+				for(int i=1;i<=casillas;i++) {
+						game.getGrid().addBox();
+				}
+				
+				break;
 			case 2:
-				//MOSTRAR EL TABLERO DE POSICIONES
+				System.out.println("GRID ES:\n"+game.showGrid());
+				break;
 			case 3:
-				//SALIR DEL PROGRAMA	
+				//SALIR DEL PROGRAMA
+				break;
+			default:
+				System.out.println("Opcion invalida, el numero de la opcion debe ser 1, 2 o 3");
+		}
+	}
+	
+	public static void showAndChoose() {
+		showMenu();
+		try {
+			chooseMenuOption(Integer.parseInt(entry.nextLine()));
+			showAndChoose();
+		}catch(NumberFormatException e) {
+			System.out.println("Opcion invalida");
+			showAndChoose();
 		}
 	}
 
