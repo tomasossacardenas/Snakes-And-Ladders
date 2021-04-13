@@ -10,7 +10,6 @@ public class Main {
 	static Game game;
 
 	public static void main(String[] args) {
-		game=new Game();
 		showAndChoose();
 	}
 	
@@ -32,16 +31,17 @@ public class Main {
 				System.out.println("Cuantas Columnas?");
 				int columnas=Integer.parseInt(entry.nextLine());
 				
+				game= new Game(filas, columnas);
+				
 				int casillas= filas*columnas;
 				game.getGrid().setCounterBoxes(casillas);
 				
-				for(int i=1;i<=casillas;i++) {
-						game.getGrid().addBox();
-				}
-				
 				break;
 			case 2:
-				System.out.println("GRID ES:\n"+game.showGrid());
+				System.out.println(game.getGrid().toString());
+				System.out.println("Esperado: "+game.getGrid().box1Ubication(game.getGrid().getInitial()));
+				game.getGrid().assignNumbers();
+				System.out.println(game.getGrid().toString());
 				break;
 			case 3:
 				//SALIR DEL PROGRAMA

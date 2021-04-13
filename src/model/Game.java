@@ -3,8 +3,8 @@ package model;
 public class Game {
 	private Grid grid;
 	
-	public Game() {
-		grid=new Grid();
+	public Game(int rows, int columns) {
+		grid=new Grid(rows, columns);
 	}
 
 	public Grid getGrid() {
