@@ -7,6 +7,8 @@ public class Grid {
 	int counterBoxes=1;
 	int rowActual;
 	Box boxUbication;
+	Box first;
+	Box vertical;
 	
 	public Grid(int rows, int columns) {
 		this.rows=rows;
@@ -17,12 +19,99 @@ public class Grid {
 	private void createGrid() {
 		initial= new Box(0,0, String.valueOf(counterBoxes));
 		counterBoxes++;
+		boxUbication=initial;
+		first=initial;
+		vertical=initial;
 		createRow(0,0,initial);
 		
 	}
 
 	private void createRow(int i, int j, Box currentFirstRow) {
 		//System.out.println("En la fila "+i);
+		if(currentFirstRow.getRow()==0) {//Si es la primera row
+			if(currentFirstRow.getNext()==null && currentFirstRow.getDown()==null) {//FALTA PONER QUE ESTE PROCESO SOLO SUCEDE EN LA ROW0
+				if(currentFirstRow.getColumn()<columns-1) {
+					System.out.println("CURRENT COLUMNA "+currentFirstRow+","+currentFirstRow.getColumn()+" Es menor a columns");
+					Box boxNext=new Box(i, j+1, String.valueOf(counterBoxes));//casilla del lado en la misma fila
+					currentFirstRow.setNext(boxNext);
+					boxNext.setPrevious(currentFirstRow);
+					counterBoxes++;
+					Box boxDown=new Box(i+1, j, String.valueOf(counterBoxes));//casilla del abajo en la misma columna
+					currentFirstRow.setDown(boxDown);
+					boxDown.setUp(currentFirstRow);
+					counterBoxes++;
+					System.out.println("**COLUMNA "+currentFirstRow+",NEXT: "+currentFirstRow.getNext()+",DOWN: "+currentFirstRow.getDown());
+					createRow(i, j+1, boxNext);
+
+
+				}
+				else {
+					if(currentFirstRow.getRow()<rows-1) {
+						System.out.println("CURRENT ROW "+currentFirstRow.getRow()+" Es menor a rows");
+						Box boxDown=new Box(i+1, j, String.valueOf(counterBoxes));//casilla del abajo en la misma columna
+						currentFirstRow.setDown(boxDown);
+						boxDown.setUp(currentFirstRow);
+						System.out.println("CURRENT ROW "+currentFirstRow+" Se le añadio abajo a "+currentFirstRow.getDown());
+						counterBoxes++;
+
+						if(first.getDown()!=null) {
+							System.out.println("UBICACION ABAJO "+boxUbication.getDown());
+							first=first.getDown();
+							vertical=first;
+							createRow(i+1, j, first);
+						}
+					}
+				}
+			}
+		}
+		else {
+			System.out.println("***************SALIMOS DE LA FILA 0****************");
+			//PASAR DE FIRST=1 A FIRST=3
+			//CAMBIAR 3.SETNEXT A 5(BOXUBICATION.GETNEXT.GETDOWN) TODO SIEMPRE Y CUANDO BOXUBICATION.GETNEXT!=NULL que significa que seria el ultimo de la fila
+			//CREAR 3.SETDOWN A 11 SIEMPRE Y CUANDO 3(FIRST) NO ESTE EN LA ULTIMA FILA
+			//PASAR FIRST DE 3-5 Y BOXUBICATION A BOXUBICATION.GETNEXT
+			
+			if(first!=null) {
+				System.out.println("el que esta abajo de "+first+" no es null");
+				if(boxUbication.getNext()!=null) {//CAMBIAR 3.SETNEXT A 5(BOXUBICATION.GETNEXT.GETDOWN) TODO SIEMPRE Y CUANDO BOXUBICATION.GETNEXT!=NULL que significa que seria el ultimo de la fila
+					first.setNext(boxUbication.getNext().getDown());
+				}
+				if(first.getRow()<rows) {
+					Box boxDown= new Box(first.getRow()+1,first.getColumn(), String.valueOf(counterBoxes));//nuevo box en una fila mas en la misma columna
+					first.setDown(boxDown);
+				}
+				if(first.getNext()!=null) {
+					first=first.getNext();
+					boxUbication=boxUbication.getNext();
+					createRow(i, j, first);
+				}
+			}
+			
+			else {//si first es el ultimo de la fila necesito que se vaya para la siguiente	
+
+			}
+		}
+			
+		/*
+			if(currentFirstRow.getColumn()<columns) {
+				currentFirstRow.setNext(boxUbication.getNext().getDown());//3-5
+				boxUbication.getNext().getDown().setPrevious(currentFirstRow);//5-3
+				boxUbication=boxUbication.getNext();
+			
+			if(first.getDown()==null && first.getRow()<rows-1) {
+				Box boxDown= new Box(i, j, String.valueOf(counterBoxes));
+				first.setDown(boxDown);
+				System.out.println("CURRENT ROW "+currentFirstRow+" Se le añadio al lado "+currentFirstRow.getNext()+ " y abajo "+currentFirstRow.getDown());
+			}
+			System.out.println("ESTAMOS EN LA ROW "+boxUbication.getRow()+" COLUMNA "+boxUbication.getColumn()+" i="+i+" j="+j);
+			
+			createRow(i,j+1, boxUbication);
+			}
+		}
+		
+
+			
+		
 		createColumn(i,j+1,currentFirstRow);
 		if(i+1<rows) {
 			Box downFirstRow= new Box(i+1,j,String.valueOf(counterBoxes));
@@ -31,6 +120,7 @@ public class Grid {
 			counterBoxes++;
 			createRow(i+1, j, downFirstRow);
 		}
+		*/
 		
 	}
 

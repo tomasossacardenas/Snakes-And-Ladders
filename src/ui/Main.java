@@ -40,7 +40,7 @@ public class Main {
 			case 2:
 				System.out.println(game.getGrid().toString());
 				System.out.println("Esperado: "+game.getGrid().box1Ubication(game.getGrid().getInitial()));
-				game.getGrid().assignNumbers();
+				//game.getGrid().assignNumbers();
 				System.out.println(game.getGrid().toString());
 				break;
 			case 3:
