@@ -1,6 +1,8 @@
 package model;
 
 public class Grid {
+	private Snake firstSnake;
+	
 	private Box initial;
 	private int rows;
 	private int columns;
@@ -130,14 +132,14 @@ public class Grid {
 						//System.out.println("**Cambie el de ahora a"+current);
 						current=current.getNext();
 						//System.out.println("Realizo metodo otra vez con ("+current+","+(content++)+","+row+")");
-						assignNumbers(current, content++,row);
+						assignNumbers(current, ++content,row);
 					}
 					else {//si es el ultimo de la fila impar
 						if(current.getUp()!=null) {//si no está en la row 0
 							//System.out.println("**Cambie el de ahora a"+current);
 							current=current.getUp();
 							//System.out.println("Realizo metodo otra vez con el de arriba ("+current+","+(content++)+","+row+")");
-							assignNumbers(current, content++,row-1);
+							assignNumbers(current, ++content,row-1);
 						}
 					}
 				}
@@ -147,12 +149,12 @@ public class Grid {
 					if(current.getPrevious()!=null) {//Si no es el ultimo de la fila par
 						current=current.getPrevious();
 						//System.out.println("Realizo metodo otra vez con ("+current+","+(content++)+","+row);
-						assignNumbers(current, content++,row);
+						assignNumbers(current, ++content,row);
 					}
 					else {//si es el ultimo de la fila par
 						if(current.getUp()!=null) {//si no está en la row 0
 							current=current.getUp();
-							assignNumbers(current, content+1,row-1);
+							assignNumbers(current, ++content,row-1);
 						}
 					}
 					
@@ -170,12 +172,12 @@ public class Grid {
 					if(current.getPrevious()!=null) {//Si no es el ultimo de la fila par
 						current=current.getPrevious();
 						//System.out.println("Realizo metodo otra vez con ("+current+","+(content++)+","+row);
-						assignNumbers(current, content++,row);
+						assignNumbers(current, ++content,row);
 					}
 					else {//si es el ultimo de la fila par
 						if(current.getUp()!=null) {//si no está en la row 0
 							current=current.getUp();
-							assignNumbers(current, content+1,row-1);
+							assignNumbers(current, ++content,row-1);
 						}
 					}
 				}
@@ -185,14 +187,14 @@ public class Grid {
 						//System.out.println("**Cambie el de ahora a"+current);
 						current=current.getNext();
 						//System.out.println("Realizo metodo otra vez con ("+current+","+(content++)+","+row+")");
-						assignNumbers(current, content++,row);
+						assignNumbers(current, ++content,row);
 					}
 					else {//si es el ultimo de la fila impar
 						if(current.getUp()!=null) {//si no está en la row 0
 							//System.out.println("**Cambie el de ahora a"+current);
 							current=current.getUp();
 							//System.out.println("Realizo metodo otra vez con el de arriba ("+current+","+(content++)+","+row+")");
-							assignNumbers(current, content++,row-1);
+							assignNumbers(current, ++content,row-1);
 						}
 					}
 				}
@@ -202,6 +204,27 @@ public class Grid {
 	}
 	
 	
+	
+	public Box findBoxCoordenates(Box boxActual, int row, int column, boolean salir) {
+		
+		
+		if(salir==false) {
+			if(boxActual.getRow()+1==row) {
+				if(boxActual.getColumn()+1==column) {
+					System.out.println("BOX ENCONTRADO EN LA POSICION ("+row+","+column+") es "+boxActual);
+					salir=true;
+				}
+				else {// if boxActual.getColumn()+1<column
+					findBoxCoordenates(boxActual.getNext(), row,column, false);
+				}
+			}
+			else { // if boxActual.getRow()+1<row
+				findBoxCoordenates(boxActual.getDown(), row,column, false);
+			}
+		}
+
+		return boxActual;
+	}
 	
 	public Box box1Ubication(Box initialP) {
 		Box box1=initialP;

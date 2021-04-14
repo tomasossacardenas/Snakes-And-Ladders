@@ -42,6 +42,7 @@ public class Main {
 				System.out.println("Esperado: "+game.getGrid().box1Ubication(game.getGrid().getInitial()));
 				game.getGrid().assignNumbers(game.getGrid().box1Ubication(game.getGrid().getInitial()), 1, game.getGrid().getRows());
 				System.out.println(game.getGrid().toString());
+				game.getGrid().findBoxCoordenates(game.getGrid().getInitial(), 1, 1, false);
 				break;
 			case 3:
 				//SALIR DEL PROGRAMA
