@@ -9,15 +9,10 @@ public class Box {
 	private int column;
 	private String content;
 	
-	public Box(String content, Box previous, Box next) {
-		this.setContent(content);
-		this.previous=previous;
-		this.setNext(next);
-	}
-	public Box(String content) {
-		this.setContent(content);
-		previous=null;
-		this.next=null;
+	public Box(int row, int column) {
+		this.row=row;
+		this.column=column;
+		this.content="";
 	}
 	public Box(int row, int column, String content) {
 		this.row=row;
