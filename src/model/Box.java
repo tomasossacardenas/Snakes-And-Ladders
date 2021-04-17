@@ -9,6 +9,7 @@ public class Box {
 	Ladder ladder;
 	private int row;
 	private int column;
+	private int boxNumber;
 	private String content;
 	
 	public Box(int row, int column) {
@@ -17,6 +18,7 @@ public class Box {
 		this.content="";
 		this.snake=null;
 		this.ladder=null;
+		this.boxNumber=0;
 	}
 	public Box(int row, int column, String content) {
 		this.row=row;
@@ -24,6 +26,14 @@ public class Box {
 		this.content=content;
 		this.snake=null;
 		this.ladder=null;
+		this.boxNumber=0;
+	}
+	
+	public int getBoxNumber() {
+		return boxNumber;
+	}
+	public void setBoxNumber(int boxNumber) {
+		this.boxNumber = boxNumber;
 	}
 	
 	public Ladder getLadder() {

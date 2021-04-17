@@ -314,11 +314,13 @@ public class Grid {
 	
 	public void assignNumbers(Box current, int content, int row) {//el primero será box1Ubication(Initial), 1, rows
 		current.setContent(String.valueOf(content));
+		current.setBoxNumber(content);
 		//System.out.println("Cambie Contenido"+current);
 		
 		if(rows%2==0) {//Si la cantidad de filas es par ,pares hacia derecha impares hacia izquierda, se termina en 0,0
 			if(row==1 && current.getColumn()==0) {//aqui estara en 0,0 CASO BASE
 				current.setContent(String.valueOf(content));
+				current.setBoxNumber(content);
 			}
 			else {
 				if(row%2==0) {//Si la fila actual es par, hacia izquierda
@@ -360,6 +362,7 @@ public class Grid {
 			if(row==1 && current.getColumn()==columns-1) {//aqui estara en 0,columns CASO BASE
 				//System.out.println("LLEGAMOS AL FINAL EN "+current);
 				current.setContent(String.valueOf(content));
+				current.setBoxNumber(content);
 			}
 			else {
 				if(row%2==0) {//Si la fila actual es par, hacia izquierda
