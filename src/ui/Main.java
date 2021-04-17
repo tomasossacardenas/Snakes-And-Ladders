@@ -31,21 +31,35 @@ public class Main {
 				System.out.println("Cuantas Columnas?");
 				int columnas=Integer.parseInt(entry.nextLine());
 				
-				game= new Game(filas, columnas);
+				System.out.println("Cuantas Serpientes?");
+				int serpientes=Integer.parseInt(entry.nextLine());
 				
-				int casillas= filas*columnas;
-				game.getGrid().setCounterBoxes(casillas);
+				System.out.println("Cuantas Escaleras?");
+				int escaleras=Integer.parseInt(entry.nextLine());
+				
+				if((serpientes+escaleras)<= (((filas*columnas)-columnas)/2)){//formula para garantizar el maximo de serpientes y escaleras a ser creadas
+					try {				
+						game= new Game(filas, columnas, serpientes, escaleras);
+						int casillas= filas*columnas;
+						game.getGrid().setCounterBoxes(casillas);
+					}
+					catch(StackOverflowError e) {
+						System.out.println("Intente otra vez, el programa ha entrado a un bucle infinito");
+					}
+				}
+				else {
+					System.out.println("No es posible añadir es cantidad de serpientes y escaleras a una cuadricula de juego de "+filas+"x"+columnas);
+				}
+				
+				
+				//game.getGrid().showSnakes(game.getGrid().getFirstSnake());
 				
 				break;
 			case 2:
 				System.out.println(game.getGrid().toString());
-				System.out.println("Esperado: "+game.getGrid().box1Ubication(game.getGrid().getInitial()));
-				game.getGrid().assignNumbers(game.getGrid().box1Ubication(game.getGrid().getInitial()), 1, game.getGrid().getRows());
-				System.out.println(game.getGrid().toString());
-				game.getGrid().findBoxCoordenates(game.getGrid().getInitial(), 1, 1, false);
 				break;
 			case 3:
-				//SALIR DEL PROGRAMA
+				game.getGrid().showSnakes(game.getGrid().getFirstSnake());
 				break;
 			default:
 				System.out.println("Opcion invalida, el numero de la opcion debe ser 1, 2 o 3");

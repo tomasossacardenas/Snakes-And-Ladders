@@ -5,6 +5,8 @@ public class Box {
 	Box next;
 	Box up;
 	Box down;
+	Snake snake;
+	Ladder ladder;
 	private int row;
 	private int column;
 	private String content;
@@ -13,11 +15,22 @@ public class Box {
 		this.row=row;
 		this.column=column;
 		this.content="";
+		this.snake=null;
+		this.ladder=null;
 	}
 	public Box(int row, int column, String content) {
 		this.row=row;
 		this.column=column;
 		this.content=content;
+		this.snake=null;
+		this.ladder=null;
+	}
+	
+	public Ladder getLadder() {
+		return ladder;
+	}
+	public void setLadder(Ladder ladder) {
+		this.ladder = ladder;
 	}
 	public String getContent() {
 		return content;
@@ -65,5 +78,11 @@ public class Box {
 	public String toString() {
 		return "["+this.content+"]";
 		
+	}
+	public Snake getSnake() {
+		return snake;
+	}
+	public void setSnake(Snake snake) {
+		this.snake = snake;
 	}
 }

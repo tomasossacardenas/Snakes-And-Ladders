@@ -1,23 +1,23 @@
 package model;
 
-public class Snake {
+public class Ladder {
 	private Box start;
 	private Box end;
 	private String content;
 	
-	private Snake next;
-	private Snake previous;
+	private Ladder next;
+	private Ladder previous;
 	
-	public Snake(Box start, Box end) {
+	public Ladder(Box start, Box end) {
 		this.start = start;
 		this.end = end;
 		this.content="";
 	}
-	public Snake() {
+	public Ladder() {
 		this.start=null;
 		this.end=null;
 		this.content="";
-		System.out.println("Entro al contructor de snake");
+		System.out.println("Entro al contructor de Ladder");
 	}
 	public Box getStart() {
 		return start;
@@ -31,16 +31,16 @@ public class Snake {
 	public void setEnd(Box end) {
 		this.end = end;
 	}
-	public Snake getNext() {
+	public Ladder getNext() {
 		return next;
 	}
-	public void setNext(Snake next) {
+	public void setNext(Ladder next) {
 		this.next = next;
 	}
-	public Snake getPrevious() {
+	public Ladder getPrevious() {
 		return previous;
 	}
-	public void setPrevious(Snake previous) {
+	public void setPrevious(Ladder previous) {
 		this.previous = previous;
 	}
 	public String getContent() {
@@ -53,6 +53,4 @@ public class Snake {
 	public String toString() {
 		return this.content;
 	}
-	
-	
 }
