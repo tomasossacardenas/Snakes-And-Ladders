@@ -19,6 +19,7 @@ public class Grid {
 		this.rows=rows;
 		this.columns=columns;
 		this.firstSnake=null;
+		this.firstLadder=null;
 		this.setSnakesNumber(snakesNumber);
 		
 		createGrid();
