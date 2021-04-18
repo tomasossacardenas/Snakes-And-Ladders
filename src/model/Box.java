@@ -1,17 +1,21 @@
 package model;
 
 public class Box {
-	Box previous;
-	Box next;
-	Box up;
-	Box down;
-	Snake snake;
-	Ladder ladder;
+	//Attributes	
 	private int row;
 	private int column;
 	private int boxNumber;
 	private String content;
 	
+	//Relations
+	private Box previous;
+	private Box next;
+	private Box up;
+	private Box down;
+	private Snake snake;
+	private Ladder ladder;
+	
+	//Constructor #1
 	public Box(int row, int column) {
 		this.row=row;
 		this.column=column;
@@ -20,6 +24,7 @@ public class Box {
 		this.ladder=null;
 		this.boxNumber=0;
 	}
+	//Constructor #2
 	public Box(int row, int column, String content) {
 		this.row=row;
 		this.column=column;
@@ -85,14 +90,16 @@ public class Box {
 		this.column = column;
 	}
 	
-	public String toString() {
-		return "["+this.content+"]";
-		
-	}
 	public Snake getSnake() {
 		return snake;
 	}
 	public void setSnake(Snake snake) {
 		this.snake = snake;
 	}
+	
+	public String toString() {
+		return "["+this.content+"]";
+		
+	}
+	
 }

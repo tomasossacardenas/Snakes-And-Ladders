@@ -1,8 +1,10 @@
 package model;
 
 public class Game {
+	//Relations
 	private Grid grid;
 	
+	//Constructor 
 	public Game(int rows, int columns, int snakesNumber, int laddersNumber) {
 		grid=new Grid(rows, columns, snakesNumber, laddersNumber);
 	}
@@ -35,6 +37,4 @@ public class Game {
 		}
 		return cuadricula;
 	}
-	
-
 }

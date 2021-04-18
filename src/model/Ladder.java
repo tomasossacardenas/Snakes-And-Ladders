@@ -1,18 +1,22 @@
 package model;
 
 public class Ladder {
+	//Attributes
+	private String content;
+
+	//Relations
 	private Box start;
 	private Box end;
-	private String content;
-	
 	private Ladder next;
 	private Ladder previous;
 	
+	//Constructor #1
 	public Ladder(Box start, Box end) {
 		this.start = start;
 		this.end = end;
 		this.content="";
 	}
+	//Constructor #2
 	public Ladder() {
 		this.start=null;
 		this.end=null;

@@ -1,24 +1,29 @@
 package model;
 
 public class Snake {
+	//Attributes	
+	private String content;
+
+	//Relations
 	private Box start;
 	private Box end;
-	private String content;
-	
 	private Snake next;
 	private Snake previous;
 	
+	//Constructor #1
 	public Snake(Box start, Box end) {
 		this.start = start;
 		this.end = end;
 		this.content="";
 	}
+	//Constructor #2
 	public Snake() {
 		this.start=null;
 		this.end=null;
 		this.content="";
 		System.out.println("Entro al contructor de snake");
 	}
+	
 	public Box getStart() {
 		return start;
 	}

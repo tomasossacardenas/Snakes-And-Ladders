@@ -5,9 +5,9 @@ import java.util.Scanner;
 import model.Game;
 
 public class Main {
-	static Scanner entry = new Scanner(System.in);
+	public static Scanner entry = new Scanner(System.in);
 	
-	static Game game;
+	public static Game game;
 
 	public static void main(String[] args) {
 		showAndChoose();
@@ -49,8 +49,7 @@ public class Main {
 				}
 				else {
 					System.out.println("No es posible añadir es cantidad de serpientes y escaleras a una cuadricula de juego de "+filas+"x"+columnas);
-				}
-				
+				}			
 				
 				//game.getGrid().showSnakes(game.getGrid().getFirstSnake());
 				
@@ -59,7 +58,9 @@ public class Main {
 				System.out.println(game.getGrid().toString());
 				break;
 			case 3:
-				game.getGrid().showSnakes(game.getGrid().getFirstSnake());
+				System.out.println("Gracias por jugar!");
+				System.exit(0);
+				//game.getGrid().showSnakes(game.getGrid().getFirstSnake());
 				break;
 			default:
 				System.out.println("Opcion invalida, el numero de la opcion debe ser 1, 2 o 3");

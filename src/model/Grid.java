@@ -1,17 +1,20 @@
 package model;
 
 public class Grid {
-	
-	private Snake firstSnake;
-	private Ladder firstLadder;
-	private Box initial;
+	//Attributes	
 	private int rows;
 	private int columns;
 	private int snakesNumber;
-	int counterBoxes=1;
-	int rowActual;
-	Box boxUbication;
+	private int counterBoxes=1;
+	private int rowActual;
 	
+	//Relations
+	private Snake firstSnake;
+	private Ladder firstLadder;
+	private Box initial;
+	private Box boxUbication;
+	
+	//Constructor
 	public Grid(int rows, int columns, int snakesNumber, int laddersNumber) {
 		this.rows=rows;
 		this.columns=columns;
@@ -76,7 +79,7 @@ public class Grid {
 		}
 		
 	}
-	
+
 	public void createSnakes(int number, Snake snake) {
 		if(number==0) {//me creo todas o no hay serpientes
 			//System.out.println("------------------NO HAY MAS SERPIENTES");
@@ -114,15 +117,20 @@ public class Grid {
 		Box boxInicial=findBoxCoordenates(initial,filaI, columnI, false);
 		//System.out.println("PIRNT BOX INITIAL"+ boxInicial);
 		
-		if(boxInicial.getSnake()==null && boxInicial.getLadder()==null) {//si la casilla en (filaI, columnI) no tiene serpientes
-			//System.out.println("	**Se eligio un inicio para la ladder ("+filaI+","+columnI+") content:"+actualLadder.getContent());
-			boxInicial.setLadder(actualLadder);
-			boxInicial.setContent(boxInicial.getContent()+" "+actualLadder.getContent());
-			actualLadder.setStart(boxInicial);
-		}
-		else {
+		//Validación para que ninguna escalera quede en la casilla 1
+		if (boxInicial.getBoxNumber()==1) {
 			chooseInitialBoxForLadder(actualLadder);
-		}
+		}else {
+			if(boxInicial.getSnake()==null && boxInicial.getLadder()==null) {//si la casilla en (filaI, columnI) no tiene serpientes
+				//System.out.println("	**Se eligio un inicio para la ladder ("+filaI+","+columnI+") content:"+actualLadder.getContent());
+				boxInicial.setLadder(actualLadder);
+				boxInicial.setContent(boxInicial.getContent()+" "+actualLadder.getContent());
+				actualLadder.setStart(boxInicial);
+			}
+			else {
+				chooseInitialBoxForLadder(actualLadder);
+			}
+		}		
 	}
 	
 	public void chooseFinalBoxForLadder(Ladder actualLadder) {
@@ -135,16 +143,20 @@ public class Grid {
 		
 		Box boxFinal=findBoxCoordenates(initial,filaF, columnF, false);
 		//System.out.println("PIRNT BOX FINAL"+ boxFinal);
-		
-		if(boxFinal.getSnake()==null && boxFinal.getLadder()==null) {//si la casilla en (filaI, columnI) no tiene serpientes
-			//System.out.println("	**Se eligio un final para la Ladder ("+filaF+","+columnF+")");
-			boxFinal.setLadder(actualLadder);
-			boxFinal.setContent(boxFinal.getContent()+" "+actualLadder.getContent());
-			actualLadder.setEnd(boxFinal);
-		}
-		else {
-			chooseFinalBoxForLadder(actualLadder);
-		}
+		//Validación para que ninguna escalera quede en la casilla 1
+		if (boxFinal.getBoxNumber()==1) {
+			chooseInitialBoxForLadder(actualLadder);
+		}else {
+			if(boxFinal.getSnake()==null && boxFinal.getLadder()==null) {//si la casilla en (filaI, columnI) no tiene serpientes
+				//System.out.println("	**Se eligio un final para la Ladder ("+filaF+","+columnF+")");
+				boxFinal.setLadder(actualLadder);
+				boxFinal.setContent(boxFinal.getContent()+" "+actualLadder.getContent());
+				actualLadder.setEnd(boxFinal);
+			}
+			else {
+				chooseFinalBoxForLadder(actualLadder);
+			}
+		}		
 	}
 	
 	public void assignSnakes(Snake actualSnake) {
@@ -158,14 +170,14 @@ public class Grid {
 			}
 		}
 		else {
-		chooseInitialBoxForSnake(actualSnake);// le asignó le box inicial
-		chooseFinalBoxForSnake(actualSnake);
-		if(actualSnake.getNext()!=null) {
-			//System.out.println("____________________EN UNA NUEVA SNAKE_______________");
-			assignSnakes(actualSnake.getNext());
+			chooseInitialBoxForSnake(actualSnake);// le asignó le box inicial
+			chooseFinalBoxForSnake(actualSnake);
+			if(actualSnake.getNext()!=null) {
+				//System.out.println("____________________EN UNA NUEVA SNAKE_______________");
+				assignSnakes(actualSnake.getNext());
+			}
 		}
-		}
-		
+
 	}
 	
 	public void chooseInitialBoxForSnake(Snake actualSnake) {// con este metodo asigno si o si la casilla inicial de la serpiente
@@ -174,18 +186,31 @@ public class Grid {
 		int filaI=(int) (Math.random() * (((rows-1) + 1) - 1)) + 1;
 		//System.out.println("Numeros aleatorios Iniciales("+filaI+","+columnI+")");
 		
-		Box boxInicial=findBoxCoordenates(initial,filaI, columnI, false);
-		//System.out.println("PIRNT BOX INITIAL"+ boxInicial);
-		
-		if(boxInicial.getSnake()==null) {//si la casilla en (filaI, columnI) no tiene serpientes
-			//System.out.println("	**Se eligio un inicio para la snake ("+filaI+","+columnI+") content:"+actualSnake.getContent());
-			boxInicial.setSnake(actualSnake);
-			boxInicial.setContent(boxInicial.getContent()+" "+actualSnake.getContent());
-			actualSnake.setStart(boxInicial);
-		}
-		else {
+		//Validación para que ninguna serpiente inicie en n*m
+		if (columnI==columns && filaI==rows) {
 			chooseInitialBoxForSnake(actualSnake);
+		}else {
+			Box boxInicial=findBoxCoordenates(initial,filaI, columnI, false);
+			//System.out.println("PIRNT BOX INITIAL"+ boxInicial);
+			
+			if (boxInicial.getBoxNumber()==1) {
+				chooseInitialBoxForSnake(actualSnake);
+			}else {
+				if(boxInicial.getSnake()==null && boxInicial.getLadder()==null) {//si la casilla en (filaI, columnI) no tiene serpientes y no tiene escaleras en esa casilla
+					//System.out.println("	**Se eligio un inicio para la snake ("+filaI+","+columnI+") content:"+actualSnake.getContent());
+					boxInicial.setSnake(actualSnake);
+					boxInicial.setContent(boxInicial.getContent()+" "+actualSnake.getContent());
+					actualSnake.setStart(boxInicial);
+				}
+				else {
+					chooseInitialBoxForSnake(actualSnake);
+				}
+			}
+			
+			
 		}
+		
+		
 	}
 	
 	public void chooseFinalBoxForSnake(Snake actualSnake) {
@@ -199,7 +224,7 @@ public class Grid {
 		Box boxFinal=findBoxCoordenates(initial,filaF, columnF, false);
 		//System.out.println("PIRNT BOX FINAL"+ boxFinal);
 		
-		if(boxFinal.getSnake()==null) {//si la casilla en (filaI, columnI) no tiene serpientes
+		if(boxFinal.getSnake()==null && boxFinal.getSnake()==null) {//si la casilla en (filaI, columnI) no tiene serpientes y escaleras
 			//System.out.println("	**Se eligio un final para la snake ("+filaF+","+columnF+")");
 			boxFinal.setSnake(actualSnake);
 			boxFinal.setContent(boxFinal.getContent()+" "+actualSnake.getContent());
@@ -430,6 +455,7 @@ public class Grid {
 		
 	}
 	
+	//Este método busca el primer elemento la última fila
 	public Box box1Ubication(Box initialP) {
 		Box box1=initialP;
 		
