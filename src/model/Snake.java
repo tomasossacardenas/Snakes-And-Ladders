@@ -10,13 +10,7 @@ public class Snake {
 	private Snake next;
 	private Snake previous;
 	
-	//Constructor #1
-	public Snake(Box start, Box end) {
-		this.start = start;
-		this.end = end;
-		this.content="";
-	}
-	//Constructor #2
+	//Constructor
 	public Snake() {
 		this.start=null;
 		this.end=null;

@@ -10,13 +10,7 @@ public class Ladder {
 	private Ladder next;
 	private Ladder previous;
 	
-	//Constructor #1
-	public Ladder(Box start, Box end) {
-		this.start = start;
-		this.end = end;
-		this.content="";
-	}
-	//Constructor #2
+	//Constructor
 	public Ladder() {
 		this.start=null;
 		this.end=null;

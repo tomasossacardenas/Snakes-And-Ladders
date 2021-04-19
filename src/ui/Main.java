@@ -5,8 +5,9 @@ import java.util.Scanner;
 import model.Game;
 
 public class Main {
-	public static Scanner entry = new Scanner(System.in);
 	
+	public static Scanner entry = new Scanner(System.in);
+	public final static String SPLIT=" ";	
 	public static Game game;
 
 	public static void main(String[] args) {
@@ -23,23 +24,42 @@ public class Main {
 	
 //Method to make process depending the option the user chose
 	public static void chooseMenuOption(int optionNumber) {
+		int filas=0;
+		int columnas=0;
+		int serpientes=0;
+		int escaleras=0;
+		String []parts = null;
 		switch(optionNumber) {
 			case 1:
+				System.out.println("Ingrese la información del juego");
+				String info = entry.nextLine() ;
+				
+				if (info!=null) {
+					parts = info.split(SPLIT);
+					//n-> filas, m->columnas,s->snakes,e->ladders,p->players
+					filas=Integer.parseInt(parts[0]);
+					columnas=Integer.parseInt(parts[1]);
+					serpientes=Integer.parseInt(parts[2]);
+					escaleras=Integer.parseInt(parts[3]);					
+				}
+				/*
 				System.out.println("Cuantas Filas?");
-				int filas=Integer.parseInt(entry.nextLine());
+				
 				
 				System.out.println("Cuantas Columnas?");
-				int columnas=Integer.parseInt(entry.nextLine());
+				=Integer.parseInt(entry.nextLine());
 				
 				System.out.println("Cuantas Serpientes?");
 				int serpientes=Integer.parseInt(entry.nextLine());
 				
 				System.out.println("Cuantas Escaleras?");
 				int escaleras=Integer.parseInt(entry.nextLine());
+				*/
 				
 				if((serpientes+escaleras)<= (((filas*columnas)-columnas)/2)){//formula para garantizar el maximo de serpientes y escaleras a ser creadas
 					try {				
-						game= new Game(filas, columnas, serpientes, escaleras);
+						game= new Game(filas, columnas, serpientes, escaleras,parts);
+						System.out.println(game.getGrid().toString());
 						int casillas= filas*columnas;
 						game.getGrid().setCounterBoxes(casillas);
 					}

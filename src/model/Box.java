@@ -15,16 +15,7 @@ public class Box {
 	private Snake snake;
 	private Ladder ladder;
 	
-	//Constructor #1
-	public Box(int row, int column) {
-		this.row=row;
-		this.column=column;
-		this.content="";
-		this.snake=null;
-		this.ladder=null;
-		this.boxNumber=0;
-	}
-	//Constructor #2
+	//Constructor
 	public Box(int row, int column, String content) {
 		this.row=row;
 		this.column=column;
