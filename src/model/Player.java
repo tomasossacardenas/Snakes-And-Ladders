@@ -2,24 +2,40 @@ package model;
 
 public class Player {
 	//Attributes
-	private char symbol;
+	private String symbol;
+	
 	
 	//Relation
+	private Box boxUbication;
 	private Player nextPlayer;
 	private Player prevPlayer;
 	
-	public Player(char s) {
-		symbol=s;
+	public Player(String s, Box box) {
+		symbol = s;
+		boxUbication = box;
+		
 	}
 
-	public void setSymbol(char symbol) {
+	public void setSymbol(String symbol) {
 		this.symbol = symbol;
 	}
 	
-	public char getSymbol() {
+
+	public String getSymbol() {
 		return symbol;
 	}
 	
+
+	
+
+	public void setBoxUbication(Box boxUbication) {
+		this.boxUbication = boxUbication;
+	}
+	
+	public Box getBoxUbication() {
+		return boxUbication;
+	}
+
 	public void setNextPlayer(Player nextPlayer) {
 		this.nextPlayer = nextPlayer;
 	}

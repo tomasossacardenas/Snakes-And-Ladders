@@ -42,26 +42,15 @@ public class Main {
 					serpientes=Integer.parseInt(parts[2]);
 					escaleras=Integer.parseInt(parts[3]);					
 				}
-				/*
-				System.out.println("Cuantas Filas?");
-				
-				
-				System.out.println("Cuantas Columnas?");
-				=Integer.parseInt(entry.nextLine());
-				
-				System.out.println("Cuantas Serpientes?");
-				int serpientes=Integer.parseInt(entry.nextLine());
-				
-				System.out.println("Cuantas Escaleras?");
-				int escaleras=Integer.parseInt(entry.nextLine());
-				*/
-				
+			
 				if((serpientes+escaleras)<= (((filas*columnas)-columnas)/2)){//formula para garantizar el maximo de serpientes y escaleras a ser creadas
-					try {				
-						game= new Game(filas, columnas, serpientes, escaleras,parts);
+					try {		
+						
+						game= new Game(filas, columnas, serpientes, escaleras,parts[parts.length-1]);
 						System.out.println(game.getGrid().toString());
 						int casillas= filas*columnas;
 						game.getGrid().setCounterBoxes(casillas);
+						continueGame();
 					}
 					catch(StackOverflowError e) {
 						System.out.println("Intente otra vez, el programa ha entrado a un bucle infinito");
@@ -75,7 +64,7 @@ public class Main {
 				
 				break;
 			case 2:
-				System.out.println(game.getGrid().toString());
+				System.out.print(game.getGrid().toString());
 				break;
 			case 3:
 				System.out.println("Gracias por jugar!");
@@ -91,11 +80,23 @@ public class Main {
 		showMenu();
 		try {
 			chooseMenuOption(Integer.parseInt(entry.nextLine()));
-			showAndChoose();
+			//showAndChoose();
 		}catch(NumberFormatException e) {
 			System.out.println("Opcion invalida");
 			showAndChoose();
 		}
 	}
-
+	
+	public static void continueGame() {		
+		String line = entry.nextLine();
+		String menu = "menu";
+		if (line!=null) {
+			if (line.isEmpty()) {
+				game.play();
+				continueGame();
+			}else if (line.equalsIgnoreCase(menu)) {
+				showAndChoose();
+			}			
+		}				
+	}
 }

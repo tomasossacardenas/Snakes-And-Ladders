@@ -477,8 +477,106 @@ public class Grid {
 		}
 
 		return box1;	
-	}	
+	}		
+	
+	public Box findBoxWithNumber(Box box, int n,boolean salir) {
+		Box foundBox =null;
+		if (salir==false && box!=null) {
+			if (box.getBoxNumber()==n) {
+				salir=true;
+				foundBox=box;
+			}else if (n<box.getBoxNumber()){
+				return findBoxWithNumber(box.getDown(),n,salir);
+			}else if (n>box.getBoxNumber()) {
+				if (box.getNext()!=null) {
+					return findBoxWithNumber(box.getNext(),n,salir);
+				}else {
+					return findBoxWithNumber(box.getUp(),n,salir);
+				}
+			}
+		}
+		return foundBox;
+	}
 
+	//Necesito hacer un método para recorrer toda la matriz e ir quitanto los números
+	
+	public void deleteNumbersNext(Box actualBox) {	
+		if (actualBox==null) {
+			
+		}else {
+			if (actualBox!=null && actualBox.getNext()!=null) {
+				if (actualBox.getBoxNumber()==1) {
+					actualBox.setContent(actualBox.getContent().replace("1"," "));
+					deleteNumbersNext(actualBox.getNext());	
+				}else {
+					if (actualBox.getSnake()!=null) {
+						actualBox.setContent(actualBox.getSnake().getContent());
+						deleteNumbersNext(actualBox.getNext());
+					}else if (actualBox.getLadder()!=null) {
+						actualBox.setContent(actualBox.getLadder().getContent());
+						deleteNumbersNext(actualBox.getNext());				
+					}else {
+						actualBox.setContent(" ");
+						deleteNumbersNext(actualBox.getNext());				
+					}			
+					
+				}
+			
+			}else if (actualBox.getNext()==null) {			
+				if (actualBox.getSnake()!=null) {
+					actualBox.setContent(actualBox.getSnake().getContent());				
+				}else if (actualBox.getLadder()!=null) {
+					actualBox.setContent(actualBox.getLadder().getContent());							
+				}else {
+					actualBox.setContent(" ");							
+				}
+				deleteNumbersPrev(actualBox.getDown());	
+				//actualBox = actualBox.getPrevious();
+			}	
+		}			
+	}
+	
+	public void deleteNumbersPrev(Box actualBox) {
+		if (actualBox==null) {
+			
+		}else {
+			if (actualBox!=null && actualBox.getPrevious()!=null) {
+				if (actualBox.getBoxNumber()==1) {					;
+					actualBox.setContent(actualBox.getContent().replace("1"," "));
+					deleteNumbersPrev(actualBox.getPrevious());
+				}else {
+					if (actualBox.getSnake()!=null) {
+						actualBox.setContent(actualBox.getSnake().getContent());
+						deleteNumbersPrev(actualBox.getPrevious());
+					}else if (actualBox.getLadder()!=null) {
+						actualBox.setContent(actualBox.getLadder().getContent());
+						deleteNumbersPrev(actualBox.getPrevious());				
+					}else {
+						actualBox.setContent(" ");
+						deleteNumbersPrev(actualBox.getPrevious());				
+					}
+				}
+			
+				
+			}else if (actualBox.getPrevious()==null) {
+				if (actualBox.getSnake()!=null) {
+					actualBox.setContent(actualBox.getSnake().getContent());				
+				}else if (actualBox.getLadder()!=null) {
+					actualBox.setContent(actualBox.getLadder().getContent());							
+				}else {
+					actualBox.setContent(" ");							
+				}
+				deleteNumbersNext(actualBox.getDown());
+			}
+		}
+		
+	}
+		
+		
+		
+		
+	
+	
 	public String toString() {
 		String message;
 		message=toStringRow(initial);

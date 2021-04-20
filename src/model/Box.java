@@ -6,6 +6,7 @@ public class Box {
 	private int column;
 	private int boxNumber;
 	private String content;
+	private boolean player;
 	
 	//Relations
 	private Box previous;
@@ -15,14 +16,24 @@ public class Box {
 	private Snake snake;
 	private Ladder ladder;
 	
+	
 	//Constructor
 	public Box(int row, int column, String content) {
 		this.row=row;
 		this.column=column;
 		this.content=content;
+		player=false;
 		this.snake=null;
 		this.ladder=null;
+		
 		this.boxNumber=0;
+	}
+	
+	public void setPlayer(boolean player) {
+		this.player = player;
+	}
+	public boolean getPlayer() {
+		return player;
 	}
 	
 	public int getBoxNumber() {
