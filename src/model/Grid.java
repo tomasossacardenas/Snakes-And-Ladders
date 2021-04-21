@@ -479,23 +479,35 @@ public class Grid {
 		return box1;	
 	}		
 	
-	public Box findBoxWithNumber(Box box, int n,boolean salir) {
-		Box foundBox =null;
+	public Box findBoxWithNumber(Box box, int n,boolean salir) {			
 		if (salir==false && box!=null) {
 			if (box.getBoxNumber()==n) {
-				salir=true;
-				foundBox=box;
-			}else if (n<box.getBoxNumber()){
-				return findBoxWithNumber(box.getDown(),n,salir);
-			}else if (n>box.getBoxNumber()) {
+				salir=true;				
+			}else {
 				if (box.getNext()!=null) {
-					return findBoxWithNumber(box.getNext(),n,salir);
-				}else {
-					return findBoxWithNumber(box.getUp(),n,salir);
+					return findBoxWithNumber(box.getNext(),n,salir);					
+				}else if (box.getNext()==null){					
+					return findBoxWithNumberPrev(box.getDown(),n,salir);					
+				}				
+			}
+		}
+		return box;		
+	}
+	
+	private Box findBoxWithNumberPrev(Box box, int n, boolean salir) {
+		
+		if (salir==false && box!=null) {
+			if (box.getBoxNumber()==n) {
+				salir=true;				
+			}else {
+				if (box.getPrevious()!=null) {
+					return findBoxWithNumberPrev(box.getPrevious(),n,salir);
+				}else if (box.getPrevious()==null) {
+					return findBoxWithNumber(box.getDown(),n,salir);
 				}
 			}
 		}
-		return foundBox;
+		return box;		
 	}
 
 	//Necesito hacer un método para recorrer toda la matriz e ir quitanto los números

@@ -3,6 +3,7 @@ package model;
 public class Player {
 	//Attributes
 	private String symbol;
+	private int movements;
 	
 	
 	//Relation
@@ -12,6 +13,7 @@ public class Player {
 	
 	public Player(String s, Box box) {
 		symbol = s;
+		movements = 0;
 		boxUbication = box;
 		
 	}
@@ -25,8 +27,13 @@ public class Player {
 		return symbol;
 	}
 	
-
+	public void setMovements(int movements) {
+		this.movements = movements;
+	}
 	
+	public int getMovements() {
+		return movements;
+	}
 
 	public void setBoxUbication(Box boxUbication) {
 		this.boxUbication = boxUbication;

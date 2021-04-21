@@ -50,7 +50,9 @@ public class Main {
 						System.out.println(game.getGrid().toString());
 						int casillas= filas*columnas;
 						game.getGrid().setCounterBoxes(casillas);
-						continueGame();
+						game.startGame();						
+						continueGame(false);
+						
 					}
 					catch(StackOverflowError e) {
 						System.out.println("Intente otra vez, el programa ha entrado a un bucle infinito");
@@ -87,16 +89,24 @@ public class Main {
 		}
 	}
 	
-	public static void continueGame() {		
+ 	//El bucle infinito está aquí o en el random de la Clase Game
+	public static void continueGame(boolean end) {		
+		boolean stop =end;
 		String line = entry.nextLine();
 		String menu = "menu";
-		if (line!=null) {
-			if (line.isEmpty()) {
-				game.play();
-				continueGame();
-			}else if (line.equalsIgnoreCase(menu)) {
-				showAndChoose();
-			}			
-		}				
+		if (line.equalsIgnoreCase(menu)) {
+			System.out.println("Se ha encontrado el MENU");
+			showAndChoose();
+			
+		}else if (stop==false) {
+			
+			stop = game.movePlayer(game.getAuxPlayer(),false);
+			System.out.println(game.getGrid().toString());
+
+			continueGame(stop);
+		}else if (stop==true) {				
+			System.out.println("El jugador "+game.getWinner().getSymbol()+" ha ganado el juego, con "+game.getWinner().getMovements()+" movimientos");
+			showAndChoose();
+		}
 	}
 }
