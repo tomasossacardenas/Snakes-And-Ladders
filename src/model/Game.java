@@ -100,30 +100,19 @@ public class Game {
 		}			
 	}		
 	
-	public void startGame() {		
-		
-		//System.out.print("Vamos a jugar!!!!!!!!!!!!!!!!!!");
-	
+	public void startGame() {	
 		grid.deleteNumbersNext(grid.getInitial());
 		System.out.print(grid.toString());
 		
-		Box big = grid.findBoxCoordenates(grid.getInitial(),1,grid.getColumns(), false);
-		
-		if (grid.getInitial().getBoxNumber() > big.getBoxNumber()) {
-			biggestBox = grid.getInitial();
-		}else {
-			biggestBox = big;
-		}
+		biggestBox = grid.findBiggestBox();
+	
 		System.out.println(">>>>>>Casilla con el valor mas grande: "+biggestBox.getBoxNumber());
-		
-		//movePlayer(firstPlayer);		
-		//System.out.print(grid.toString());		
+	
 	}
 	
 	public boolean movePlayer(Player player,boolean end) {		
 		boolean stop=end;
-		//System.out.println("Entro al metodo movePlayer");
-		
+			
 		if (stop==true) {
 			
 		}else {
@@ -156,13 +145,100 @@ public class Game {
 					Box boxUbicationF = grid.findBoxWithNumber(grid.getInitial(),newPosition, false);
 					//System.out.println("Ubicacion final: "+boxUbicationF.getBoxNumber()+ " del simbolo: "+player.getSymbol());
 					//System.out.println("++++++++++Valor del box encontrado: "+boxUbicationF.getBoxNumber());
-					//Al player le asigna su nueva posicion, posicion final
-					player.setBoxUbication(boxUbicationF);
-					player.setMovements(player.getMovements()+1);
-					//System.out.println("Movimientos de "+player.getSymbol()+": "+player.getMovements());
-					//A la casilla final le agrega el simbolo del player
-					boxUbicationF.setContent(boxUbicationF.getContent()+player.getSymbol());
+
 					
+					
+					//Verificación de si cayó en una snake o ladder
+					if (boxUbicationF.getSnake()!=null) {
+						Box startSnake = null;
+						//La serpiente inicia en la casilla mayor
+						if (boxUbicationF.getSnake().getStart().getBoxNumber()>boxUbicationF.getSnake().getEnd().getBoxNumber()) {
+							startSnake = boxUbicationF.getSnake().getStart();
+							
+							if (boxUbicationF == startSnake) {
+								Box endSnake = startSnake.getSnake().getEnd();
+								System.out.println("El jugador "+player.getSymbol()+" se movera a la casilla "+endSnake.getBoxNumber()+" que es el final de una serpiente");
+								player.setBoxUbication(endSnake);
+								player.setMovements(player.getMovements()+1);
+								endSnake.setContent(endSnake.getContent()+player.getSymbol());								
+							}else {
+								//Al player le asigna su nueva posicion, posicion final
+								player.setBoxUbication(boxUbicationF);
+								player.setMovements(player.getMovements()+1);
+								//System.out.println("Movimientos de "+player.getSymbol()+": "+player.getMovements());
+								//A la casilla final le agrega el simbolo del player
+								boxUbicationF.setContent(boxUbicationF.getContent()+player.getSymbol());
+							}
+							
+						}else {
+							startSnake = boxUbicationF.getSnake().getEnd();
+							if (boxUbicationF == startSnake) {
+								Box endSnake = startSnake.getSnake().getStart();
+								System.out.println("El jugador "+player.getSymbol()+" se movera a la casilla "+endSnake.getBoxNumber()+" que es el final de una serpiente");
+								player.setBoxUbication(endSnake);
+								player.setMovements(player.getMovements()+1);
+								endSnake.setContent(endSnake.getContent()+player.getSymbol());								
+							}else {
+								//Al player le asigna su nueva posicion, posicion final
+								player.setBoxUbication(boxUbicationF);
+								player.setMovements(player.getMovements()+1);
+								//System.out.println("Movimientos de "+player.getSymbol()+": "+player.getMovements());
+								//A la casilla final le agrega el simbolo del player
+								boxUbicationF.setContent(boxUbicationF.getContent()+player.getSymbol());
+							}
+						}			
+						
+					}else if (boxUbicationF.getLadder()!=null) {
+						Box startLadder = null;
+						
+						if (boxUbicationF.getLadder().getStart().getBoxNumber()<boxUbicationF.getLadder().getEnd().getBoxNumber()) {
+							
+							startLadder = boxUbicationF.getLadder().getStart();
+							
+							if (boxUbicationF == startLadder) {
+								Box endLadder = startLadder.getLadder().getEnd();
+								System.out.println("El jugador "+player.getSymbol()+" se movera a la casilla "+endLadder.getBoxNumber()+" que es el final de una escalera");
+								player.setBoxUbication(endLadder);
+								player.setMovements(player.getMovements()+1);
+								endLadder.setContent(endLadder.getContent()+player.getSymbol());
+								
+							}else {
+								//Al player le asigna su nueva posicion, posicion final
+								player.setBoxUbication(boxUbicationF);
+								player.setMovements(player.getMovements()+1);
+								//System.out.println("Movimientos de "+player.getSymbol()+": "+player.getMovements());
+								//A la casilla final le agrega el simbolo del player
+								boxUbicationF.setContent(boxUbicationF.getContent()+player.getSymbol());
+							}
+							
+						}else {
+							
+							startLadder = boxUbicationF.getLadder().getStart();
+							
+							if (boxUbicationF == startLadder) {
+								Box endLadder = startLadder.getLadder().getStart();
+								System.out.println("El jugador "+player.getSymbol()+" se movera a la casilla "+endLadder.getBoxNumber()+" que es el final de una escalera");
+								player.setBoxUbication(endLadder);
+								player.setMovements(player.getMovements()+1);
+								endLadder.setContent(endLadder.getContent()+player.getSymbol());
+							}else {
+								//Al player le asigna su nueva posicion, posicion final
+								player.setBoxUbication(boxUbicationF);
+								player.setMovements(player.getMovements()+1);
+								//System.out.println("Movimientos de "+player.getSymbol()+": "+player.getMovements());
+								//A la casilla final le agrega el simbolo del player
+								boxUbicationF.setContent(boxUbicationF.getContent()+player.getSymbol());
+							}
+						}
+					}else {
+						
+						//Al player le asigna su nueva posicion, posicion final
+						player.setBoxUbication(boxUbicationF);
+						player.setMovements(player.getMovements()+1);
+						//System.out.println("Movimientos de "+player.getSymbol()+": "+player.getMovements());
+						//A la casilla final le agrega el simbolo del player
+						boxUbicationF.setContent(boxUbicationF.getContent()+player.getSymbol());
+					}					
 					
 					if (boxUbicationF==biggestBox) {
 						boxUbicationF.setPlayer(true);
@@ -172,18 +248,16 @@ public class Game {
 					}
 
 					auxPlayer = player.getNextPlayer();
-					//System.out.println("valor de player: "+player.getSymbol()+ " y su next es: "+player.getNextPlayer().getSymbol());
-					//System.out.println("nuevo valor de auxPlayer: "+auxPlayer.getSymbol());
-					//movePlayer(player,stop);	
+				
 				}else {
-					//System.out.println("Debe repetir el ciclo");
-					return movePlayer(player,stop);
+					System.out.println("El valor obtenido al lanzar el dado no le sirve");
+					player.setBoxUbication(player.getBoxUbication());
+					player.getBoxUbication().setContent(player.getBoxUbication().getContent()+player.getSymbol());
+					auxPlayer = player.getNextPlayer();
+					//return movePlayer(player,stop);
 				}
 			}
-		}
-		
-		//System.out.println("valor de stop: "+stop);
-		 
+		}	 
 	return stop;		
 	}
 

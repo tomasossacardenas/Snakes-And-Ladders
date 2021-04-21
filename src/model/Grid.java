@@ -12,6 +12,7 @@ public class Grid {
 	private Snake firstSnake;
 	private Ladder firstLadder;
 	private Box initial;
+	private Box biggestBox;
 	private Box boxUbication;
 	
 	//Constructor
@@ -24,6 +25,7 @@ public class Grid {
 		
 		createGrid();
 		assignNumbers(box1Ubication(initial), 1, rows);
+		biggestBox = findBiggestBox();
 		//System.out.println(toString());
 		
 		createSnakes(snakesNumber, firstSnake);
@@ -36,8 +38,13 @@ public class Grid {
 	
 
 	
-
+	public void setBiggestBox(Box biggestBox) {
+		this.biggestBox = biggestBox;
+	}
 	
+	public Box getBiggestBox() {
+		return biggestBox;
+	}
 
 	public Box getInitial() {
 		return initial;
@@ -219,7 +226,8 @@ public class Grid {
 		int filaI=(int) (Math.random() * (((rows) + 1) - 2)) + 2;
 		//System.out.println("Numeros aleatorios Iniciales Ladder("+filaI+","+columnI+")");
 		
-		if (columnI==initial.getColumn() && filaI==initial.getRow()) {
+		//Validacion para que ninguna escalera termine en la ultima casilla
+		if (columnI==biggestBox.getColumn() && filaI==biggestBox.getRow()) {
 			chooseInitialBoxForLadder(actualLadder);
 		}else {
 			Box boxInicial=findBoxCoordenates(initial,filaI, columnI, false);
@@ -251,7 +259,8 @@ public class Grid {
 		int filaF=(int) (Math.random() * ( (1 + 1) - (actualLadder.getStart().getRow()+1-1))) + (actualLadder.getStart().getRow()+1-1);
 		//System.out.println("Numeros aleatorios Finales("+filaF+","+columnF+")");
 		
-		if (columnF==initial.getColumn() && filaF==initial.getRow()) {
+		//Validacion para que ninguna escalera inicie en la ultima casilla
+		if (columnF==biggestBox.getColumn() && filaF==biggestBox.getRow()) {
 			chooseFinalBoxForLadder(actualLadder);
 		}else {
 			Box boxFinal=findBoxCoordenates(initial,filaF, columnF, false);
@@ -302,8 +311,8 @@ public class Grid {
 		int filaI=(int) (Math.random() * (((rows-1) + 1) - 1)) + 1;
 		//System.out.println("Numeros aleatorios Iniciales("+filaI+","+columnI+")");
 		
-		//Validación para que ninguna serpiente inicie en n*m
-		if (columnI==initial.getColumn() && filaI==initial.getRow()) {
+		//Validación para que ninguna serpiente inicie en la ultima casilla
+		if (columnI==biggestBox.getColumn() && filaI==biggestBox.getRow()) {
 			chooseInitialBoxForSnake(actualSnake);
 		}else {
 			Box boxInicial=findBoxCoordenates(initial,filaI, columnI, false);
@@ -337,24 +346,27 @@ public class Grid {
 		int filaF=(int) (Math.random() * ( (rows + 1) - (actualSnake.getStart().getRow()+2))) + (actualSnake.getStart().getRow()+2);
 		//System.out.println("Numeros aleatorios Finales("+filaF+","+columnF+")");
 		
-		Box boxFinal=findBoxCoordenates(initial,filaF, columnF, false);
-		//System.out.println("PIRNT BOX FINAL"+ boxFinal);
-		//Validación para que la serpiente no termine en la casilla 1
-		if (boxFinal.getBoxNumber()==1) {
+		//Validacion para que ninguna serpiente termine en la ultima casilla
+		if (columnF == biggestBox.getBoxNumber() && filaF == biggestBox.getBoxNumber()) {
 			chooseFinalBoxForSnake(actualSnake);
 		}else {
-			if(boxFinal.getSnake()==null && boxFinal.getSnake()==null) {//si la casilla en (filaI, columnI) no tiene serpientes y escaleras
-				//System.out.println("	**Se eligio un final para la snake ("+filaF+","+columnF+")");
-				boxFinal.setSnake(actualSnake);
-				boxFinal.setContent(boxFinal.getContent()+" "+actualSnake.getContent());
-				actualSnake.setEnd(boxFinal);
-			}
-			else {
+			Box boxFinal=findBoxCoordenates(initial,filaF, columnF, false);
+			//System.out.println("PIRNT BOX FINAL"+ boxFinal);
+			//Validación para que la serpiente no termine en la casilla 1
+			if (boxFinal.getBoxNumber()==1) {
 				chooseFinalBoxForSnake(actualSnake);
+			}else {
+				if(boxFinal.getSnake()==null && boxFinal.getSnake()==null) {//si la casilla en (filaI, columnI) no tiene serpientes y escaleras
+					//System.out.println("	**Se eligio un final para la snake ("+filaF+","+columnF+")");
+					boxFinal.setSnake(actualSnake);
+					boxFinal.setContent(boxFinal.getContent()+" "+actualSnake.getContent());
+					actualSnake.setEnd(boxFinal);
+				}
+				else {
+					chooseFinalBoxForSnake(actualSnake);
+				}
 			}
-		}
-		
-		
+		}		
 	}
 	
 	public void assignNumbers(Box current, int content, int row) {//el primero será box1Ubication(Initial), 1, rows
@@ -584,7 +596,18 @@ public class Grid {
 		
 	}
 		
+	
 		
+	public Box findBiggestBox() {
+		Box big = findBoxCoordenates(initial,1,columns, false);
+
+		if (initial.getBoxNumber() > big.getBoxNumber()) {
+			biggestBox = initial;
+		}else {
+			biggestBox = big;
+		}
+		return biggestBox;
+	}
 		
 		
 	
