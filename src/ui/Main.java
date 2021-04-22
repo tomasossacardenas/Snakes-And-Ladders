@@ -44,9 +44,26 @@ public class Main {
 				}
 			
 				if((serpientes+escaleras)<= (((filas*columnas)-columnas)/2)){//formula para garantizar el maximo de serpientes y escaleras a ser creadas
-					try {		
+					try {
+						if(isNumeric(parts[parts.length-1])) {//SI LOS JUGADORES SON UN NUMERO ENTONCES
+							if(Integer.parseInt(parts[parts.length-1])<=8) {
+								game= new Game(filas, columnas, serpientes, escaleras,Integer.parseInt(parts[parts.length-1]));
+							}
+							else {
+								System.out.println("Error al crear jugadores, la cantidad de jugadores maxima permitida son 8");
+								showAndChoose();
+							}
+						}
+						else {
+							if(parts[parts.length-1].length()<=8) {
+								game= new Game(filas, columnas, serpientes, escaleras,parts[parts.length-1]);
+							}
+							else {
+								System.out.println("Error al crear jugadores, la cantidad de jugadores maxima permitida son 8");
+								showAndChoose();
+							}
+						}
 						
-						game= new Game(filas, columnas, serpientes, escaleras,parts[parts.length-1]);
 						System.out.println(game.getGrid().toString());
 						int casillas= filas*columnas;
 						game.getGrid().setCounterBoxes(casillas);
@@ -86,7 +103,14 @@ public class Main {
 				System.out.println("Opcion invalida, el numero de la opcion debe ser 1, 2 o 3");
 		}
 	}
-	
+	private static boolean isNumeric(String cadena){
+		try {
+			Integer.parseInt(cadena);
+			return true;
+		} catch (NumberFormatException nfe){
+			return false;
+		}
+	}
 	public static void showAndChoose() {
 		showMenu();
 		try {

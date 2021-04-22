@@ -15,6 +15,11 @@ public class Game {
 		grid=new Grid(rows, columns, snakesNumber, laddersNumber);		
 		createPlayers(firstPlayer,parts,0,parts.length());
 	}
+	//Constructor 
+	public Game(int rows, int columns, int snakesNumber, int laddersNumber,int numberOfPlayers) {			
+		grid=new Grid(rows, columns, snakesNumber, laddersNumber);		
+		createPlayers(firstPlayer,numberOfPlayers);
+	}
 	
 	public void setFirstPlayer(Player firstPlayer) {
 		this.firstPlayer = firstPlayer;
@@ -44,10 +49,53 @@ public class Game {
 		return grid;
 	}
 	
+	private void createPlayers(Player actualPlayer, int numberOfPlayers) {
+		//* ! O X % $ # + &
+		String symbols="*!OX%$#+&"; //symbols.charAt(posicion)
+		
+		if(numberOfPlayers==0) {//Caso base cuando el numero de jugadores a crear ya es cero
+			
+		}
+		else {// aun hay jugadores por crear
+			if(firstPlayer==null) {//Si no hay primer jugador
+				Box box = grid.findBoxWithNumber(grid.getInitial(), 1, false);
+				firstPlayer = new Player(String.valueOf(symbols.charAt(numberOfPlayers)), box);
+				
+				auxPlayer=firstPlayer;
+				firstPlayer.setNextPlayer(lastPlayer);//va a ser null
+				
+				box.setContent(box.getContent()+firstPlayer.getSymbol());
+				box.setPlayer(true);
+				//numberOfPlayers--;
+				createPlayers(firstPlayer,--numberOfPlayers);
+			}
+			else {//Si ya hay primer jugador
+				Box box = grid.findBoxWithNumber(grid.getInitial(), 1, false);
+				Player player = new Player(String.valueOf(symbols.charAt(numberOfPlayers)),box);
+				//System.out.println("symbol pPlayer: "+pPlayer.getSymbol());
+				//System.out.println("symbol player: "+player.getSymbol());
+				actualPlayer.setNextPlayer(player);
+				player.setNextPlayer(actualPlayer);
+
+				//player.setNextPlayer(firstPlayer);
+				lastPlayer = player;
+				lastPlayer.setNextPlayer(firstPlayer);
+				//System.out.println("symbol lastPlayer: "+lastPlayer.getSymbol()+" y su next: "+lastPlayer.getNextPlayer().getSymbol());
+				
+				box.setContent(box.getContent()+player.getSymbol());
+				box.setPlayer(true);
+				//player.setPrevPlayer(pPlayer);
+				//pPlayer.setNextPlayer(player);
+				createPlayers(player,--numberOfPlayers);
+			}
+		}
+		
+	}
+	
 	//Creo una lista circular de los jugadores
 	public void createPlayers(Player pPlayer,String parts,int i,int p) {
 		//* ! O X % $ # + &
-		int players = p;
+		int players = p; //
 		String symbol;
 
 		if (parts!=null && i<parts.length()) {			
