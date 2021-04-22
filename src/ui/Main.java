@@ -57,6 +57,10 @@ public class Main {
 					catch(StackOverflowError e) {
 						System.out.println("Intente otra vez, el programa ha entrado a un bucle infinito");
 					}
+					catch(NullPointerException e) {
+						System.out.println("Intente otra vez, ha ocurrido un error al crear el juego");
+					}
+					
 				}
 				else {
 					System.out.println("No es posible añadir es cantidad de serpientes y escaleras a una cuadricula de juego de "+filas+"x"+columnas);
@@ -66,12 +70,17 @@ public class Main {
 				
 				break;
 			case 2:
-				System.out.print(game.getGrid().toString());
+				try{
+					System.out.println("Tablero de posiciones\n"+game.getGrid().getPositionsGrid()+"\n");
+				}catch(NullPointerException e) {
+					System.out.println("El juego no ha sido creado por lo que no hay tablero creado\n");
+				}
+				showAndChoose();
+				
 				break;
 			case 3:
 				System.out.println("Gracias por jugar!");
 				System.exit(0);
-				//game.getGrid().showSnakes(game.getGrid().getFirstSnake());
 				break;
 			default:
 				System.out.println("Opcion invalida, el numero de la opcion debe ser 1, 2 o 3");
@@ -94,6 +103,15 @@ public class Main {
 		boolean stop =end;
 		String line = entry.nextLine();
 		String menu = "menu";
+		String num="num";
+		if(line.equalsIgnoreCase(num)) {
+			try{
+				System.out.println("Tablero de posiciones\n"+game.getGrid().getPositionsGrid()+"\n");
+			}catch(NullPointerException e) {
+				System.out.println("El juego no ha sido creado por lo que no hay tablero creado\n");
+			}
+			continueGame(stop);
+		}
 		if (line.equalsIgnoreCase(menu)) {
 			System.out.println("Se ha encontrado el MENU");
 			showAndChoose();
