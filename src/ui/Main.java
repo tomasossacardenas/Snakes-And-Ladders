@@ -125,9 +125,11 @@ public class Main {
  	//El bucle infinito está aquí o en el random de la Clase Game
 	public static void continueGame(boolean end) {		
 		boolean stop =end;
-		String line = entry.nextLine();
-		String menu = "menu";
+		String line = entry.nextLine();		
 		String num="num";
+		String simul="simul";
+		String menu = "menu";
+		
 		if(line.equalsIgnoreCase(num)) {
 			try{
 				System.out.println("Tablero de posiciones\n"+game.getGrid().getPositionsGrid()+"\n");
@@ -136,11 +138,20 @@ public class Main {
 			}
 			continueGame(stop);
 		}
+		
+		if (line.equalsIgnoreCase(simul)) {
+			game.simul(game.getAuxPlayer(),false);
+			System.out.println("El jugador "+game.getWinner().getSymbol()+" ha ganado el juego, con "+game.getWinner().getMovements()+" movimientos");
+			showAndChoose();
+		}
+		
 		if (line.equalsIgnoreCase(menu)) {
 			System.out.println("Se ha encontrado el MENU");
 			showAndChoose();
 			
-		}else if (stop==false) {
+		}
+		
+		if (stop==false) {
 			
 			stop = game.movePlayer(game.getAuxPlayer(),false);
 			System.out.println(game.getGrid().toString());
@@ -148,6 +159,11 @@ public class Main {
 			continueGame(stop);
 		}else if (stop==true) {				
 			System.out.println("El jugador "+game.getWinner().getSymbol()+" ha ganado el juego, con "+game.getWinner().getMovements()+" movimientos");
+			
+			System.out.println("Ingrese el nombre o el nickname del jugador ganador");
+			String namePlayer = entry.nextLine();			
+			game.getWinner().setNickName(namePlayer);
+			
 			showAndChoose();
 		}
 	}

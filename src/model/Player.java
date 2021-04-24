@@ -2,6 +2,7 @@ package model;
 
 public class Player {
 	//Attributes
+	private String nickname;
 	private String symbol;
 	private int movements;
 	
@@ -12,12 +13,20 @@ public class Player {
 	private Player prevPlayer;
 	
 	public Player(String s, Box box) {
+		nickname="";
 		symbol = s;
 		movements = 0;
 		boxUbication = box;
 		
 	}
-
+	public void setNickName(String nickname) {
+		this.nickname = nickname;
+	}
+	
+	public String getNickName() {
+		return nickname;
+	}
+	
 	public void setSymbol(String symbol) {
 		this.symbol = symbol;
 	}
