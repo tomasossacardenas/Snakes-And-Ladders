@@ -10,7 +10,7 @@ public class Player {
 	//Relation
 	private Box boxUbication;
 	private Player nextPlayer;
-	private Player prevPlayer;
+	
 	
 	public Player(String s, Box box) {
 		nickname="";
@@ -60,11 +60,5 @@ public class Player {
 		return nextPlayer;
 	}
 	
-	public void setPrevPlayer(Player prevPlayer) {
-		this.prevPlayer = prevPlayer;
-	}
-
-	public Player getPrevPlayer() {
-		return prevPlayer;
-	}
+	
 }

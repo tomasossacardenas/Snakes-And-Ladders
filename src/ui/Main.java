@@ -142,6 +142,10 @@ public class Main {
 		if (line.equalsIgnoreCase(simul)) {
 			game.simul(game.getAuxPlayer(),false);
 			System.out.println("El jugador "+game.getWinner().getSymbol()+" ha ganado el juego, con "+game.getWinner().getMovements()+" movimientos");
+			
+			System.out.println("Ingrese el nombre o el nickname del jugador ganador");
+			String namePlayer = entry.nextLine();			
+			game.getWinner().setNickName(namePlayer);
 			showAndChoose();
 		}
 		
