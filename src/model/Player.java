@@ -4,12 +4,13 @@ public class Player {
 	//Attributes
 	private String nickname;
 	private String symbol;
-	private int movements;
-	
+	private int movements;	
 	
 	//Relation
 	private Box boxUbication;
 	private Player nextPlayer;
+	private Player left;
+	private Player right;
 	
 	
 	public Player(String s, Box box) {
@@ -58,6 +59,18 @@ public class Player {
 
 	public Player getNextPlayer() {
 		return nextPlayer;
+	}
+	public Player getLeft() {
+		return left;
+	}
+	public void setLeft(Player left) {
+		this.left = left;
+	}
+	public Player getRight() {
+		return right;
+	}
+	public void setRight(Player right) {
+		this.right = right;
 	}
 	
 	

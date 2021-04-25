@@ -9,6 +9,7 @@ public class Game {
 	private Player lastPlayer;
 	private Player winner;
 	private Box biggestBox;
+	private Player firstWinner;
 	
 	//Constructor #1
 	public Game(int rows, int columns, int snakesNumber, int laddersNumber,String parts) {			
@@ -47,6 +48,12 @@ public class Game {
 
 	public Grid getGrid() {
 		return grid;
+	}
+	public Player getFirstWinner() {
+		return firstWinner;
+	}
+	public void setFirstWinner(Player firstWinner) {
+		this.firstWinner = firstWinner;
 	}
 	
 	private void createPlayers(Player actualPlayer, int numberOfPlayers) {

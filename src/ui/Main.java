@@ -3,14 +3,17 @@ package ui;
 import java.util.Scanner;
 
 import model.Game;
+import model.WinnersController;
 
 public class Main {
 	
 	public static Scanner entry = new Scanner(System.in);
 	public final static String SPLIT=" ";	
 	public static Game game;
+	public static WinnersController winners;
 
 	public static void main(String[] args) {
+		winners=new WinnersController();
 		showAndChoose();
 	}
 	
@@ -99,6 +102,15 @@ public class Main {
 				System.out.println("Gracias por jugar!");
 				System.exit(0);
 				break;
+			case 4:
+				if(winners.getFirstWinner()!=null) {
+					winners.showWinners(winners.getFirstWinner());
+				}
+				else {
+					System.out.println("El arbol está vacío\n");
+				}
+				showAndChoose();
+				break;
 			default:
 				System.out.println("Opcion invalida, el numero de la opcion debe ser 1, 2 o 3");
 		}
@@ -167,6 +179,8 @@ public class Main {
 			System.out.println("Ingrese el nombre o el nickname del jugador ganador");
 			String namePlayer = entry.nextLine();			
 			game.getWinner().setNickName(namePlayer);
+			
+			winners.addWinner(winners.getFirstWinner(), game.getWinner());
 			
 			showAndChoose();
 		}
