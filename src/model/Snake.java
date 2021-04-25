@@ -15,7 +15,6 @@ public class Snake {
 		this.start=null;
 		this.end=null;
 		this.content="";
-		System.out.println("Entro al contructor de snake");
 	}
 	
 	public Box getStart() {

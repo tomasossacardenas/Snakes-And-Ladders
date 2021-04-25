@@ -15,7 +15,6 @@ public class Ladder {
 		this.start=null;
 		this.end=null;
 		this.content="";
-		System.out.println("Entro al contructor de Ladder");
 	}
 	public Box getStart() {
 		return start;

@@ -162,7 +162,8 @@ public class Menu {
 			}
 		}
 		
-		public  void continueGame(boolean end) {		
+		public  void continueGame(boolean end) {	
+			System.out.println("Presione enter para el siguiente turno");
 			boolean stop =end;
 			String line = entry.nextLine();		
 			String num="num";
@@ -172,6 +173,7 @@ public class Menu {
 			if(line.equalsIgnoreCase(num)) {
 				try{
 					System.out.println("Tablero de posiciones\n"+game.getGrid().getPositionsGrid()+"\n");
+	
 				}catch(NullPointerException e) {
 					System.out.println("El juego no ha sido creado por lo que no hay tablero creado\n");
 				}
@@ -199,7 +201,7 @@ public class Menu {
 			}
 			
 			if (stop==false) {
-				
+				//System.out.println("Presione enter para el siguiente turno");
 				stop = game.movePlayer(game.getAuxPlayer(),false);
 				System.out.println(game.getGrid().toString());
 
