@@ -100,21 +100,35 @@ public class Grid{
 	public void setSnakesNumber(int snakesNumber) {
 		this.snakesNumber = snakesNumber;
 	}
-	
-	public void showSnakes(Snake snake) {
-		System.out.println("	SERPIENTE "+snake.toString());
-		if(snake.getNext()!=null) {
-			showSnakes(snake.getNext());
-		}
+	public String getPositionsGrid() {
+		return positionsGrid;
+	}
+
+	public void setPositionsGrid(String positionsGrid) {
+		this.positionsGrid = positionsGrid;
 	}
 	
+	
+	/**
+	* This method creates a grid. <br>
+	*<b>Pre:</b>Method createRow(int, int, Box) must be already created<br>
+	*<b>Pos:</b>The grid has been created correctly<br>
+	*/
 	private void createGrid() {
 		initial= new Box(0,0, String.valueOf(counterBoxes));
 		counterBoxes++;
 		createRow(0,0,initial);
 		
 	}
-
+	
+	/**
+	* This method creates a new Row. <br>
+	*<b>Pre:</b>Method createColumn must be already created<br>
+	*<b>Pos:</b>The row has been created correctly<br>
+	*@param i is the integer number of the row.
+	*@param j is the integer number of the column number.
+	*@param currentFirstRow is the Box of the firstBox of the row i.
+	*/
 	private void createRow(int i, int j, Box currentFirstRow) {
 		//System.out.println("en createRow con la fila "+i);
 		createCol(i,j+1,currentFirstRow,currentFirstRow.getUp());
@@ -126,7 +140,15 @@ public class Grid{
 			createRow(i+1,j,downFirstRow);
 		}
 	}
-
+	
+	/**
+	* This method creates a new Column. <br>
+	*<b>Pos:</b>The column has been created correctly<br>
+	*@param i is the integer number of the row.
+	*@param j is the integer number of the column.
+	*@param prev is the Box previous to the new Box.
+	*@param prev is the Box previous in the upRow of the new Box.
+	*/
 	private void createCol(int i, int j, Box prev, Box rowPrev) {
 		if(j<columns) {
 			//System.out.println("   en createCol con la columna "+j);
@@ -145,6 +167,12 @@ public class Grid{
 		}
 	}
 	
+	/**
+	* This method creates the ladders. <br>
+	*<b>Pos:</b>All ladders has been created<br>
+	*@param number is the integer number of ladders remaining to create.
+	*@param ladder is the firstLadder, could be null if there has not been created a ladder yet.
+	*/
 	public void createLadders(int number, Ladder ladder) {
 		if(number==0) {//me creo todas o no hay serpientes
 			//System.out.println("------------------NO HAY MAS SERPIENTES");
@@ -171,6 +199,12 @@ public class Grid{
 		}
 	}
 	
+	/**
+	* This method creates the Snakes. <br>
+	*<b>Pos:</b>All snakes has been created<br>
+	*@param number is the integer number of snakes remaining to create.
+	*@param ladder is the firstSnake, could be null if there has not been created a snake yet.
+	*/
 	public void createSnakes(int number, Snake snake) {
 		if(number==0) {//me creo todas o no hay serpientes
 			//System.out.println("------------------NO HAY MAS SERPIENTES");
@@ -199,6 +233,11 @@ public class Grid{
 		}
 	}
 	
+	/**
+	* This method assigns the start and final of all Ladders. <br>
+	*<b>Pos:</b>All ladders has been assigned in the grid with a star and an ending<br>
+	*@param actualLadder is the ladder to be worked on, actualLadder!=null.
+	*/
 	public void assignLadders(Ladder actualLadder) {
 		if(actualLadder==firstLadder) {
 			//System.out.println("ENTRO A ACTUAL==FIRST");
@@ -220,8 +259,11 @@ public class Grid{
 		
 	}
 
-	
-	
+	/**
+	* This method choose where the ladder is going to start. <br>
+	*<b>Pos:</b>The ladder has a box where to start<br>
+	*@param actualLadder is the ladder to assign a start (row, column), actualLadder!=null.
+	*/
 	public void chooseInitialBoxForLadder(Ladder actualLadder) {// con este metodo asigno si o si la casilla inicial de la serpiente
 		//(int) (Math.random() * (<número_máximo + 1> - <número_mínimo>)) + <numero_mínimo>;
 		int columnI=(int) (Math.random() * (columns + 1 - 1)) + 1;
@@ -253,6 +295,11 @@ public class Grid{
 			
 	}
 	
+	/**
+	* This method choose where the ladder is going to end. <br>
+	*<b>Pos:</b>The ladder has a box where to end<br>
+	*@param actualLadder is the ladder to assign a end (row, column), actualLadder!=null.
+	*/
 	public void chooseFinalBoxForLadder(Ladder actualLadder) {
 		//(int) (Math.random() * (<número_máximo + 1> - <número_mínimo>)) + <numero_mínimo>;
 		int columnF=(int) (Math.random() * (columns + 1 - 1)) + 1;
@@ -286,6 +333,11 @@ public class Grid{
 			
 	}
 	
+	/**
+	* This method assigns the start and final of all snakes. <br>
+	*<b>Pos:</b>All snakes has been assigned in the grid with a start and an ending<br>
+	*@param actualSnake is the snake to be worked on, actualSnake!=null.
+	*/
 	public void assignSnakes(Snake actualSnake) {
 		if(actualSnake==firstSnake) {
 			//System.out.println("ENTRO A ACTUAL==FIRST");
@@ -307,6 +359,11 @@ public class Grid{
 
 	}
 	
+	/**
+	* This method choose where the snake is going to start. <br>
+	*<b>Pos:</b>The snake has a box where to start<br>
+	*@param actualSnake is the snake to assign a start (row, column), actualSnake!=null.
+	*/
 	public void chooseInitialBoxForSnake(Snake actualSnake) {// con este metodo asigno si o si la casilla inicial de la serpiente
 		//(int) (Math.random() * (<número_máximo + 1> - <número_mínimo>)) + <numero_mínimo>;
 		int columnI=(int) (Math.random() * (columns + 1 - 1)) + 1;
@@ -340,6 +397,11 @@ public class Grid{
 		
 	}
 	
+	/**
+	* This method choose where the snake is going to end. <br>
+	*<b>Pos:</b>The snake has a box where to end<br>
+	*@param actualSnake is the snake to assign a end (row, column), actualSnake!=null.
+	*/
 	public void chooseFinalBoxForSnake(Snake actualSnake) {
 		//(int) (Math.random() * (<número_máximo + 1> - <número_mínimo>)) + <numero_mínimo>;
 		int columnF=(int) (Math.random() * (columns + 1 - 1)) + 1;
@@ -371,6 +433,13 @@ public class Grid{
 		}		
 	}
 	
+	/**
+	* This method assigns the numbers of the boxes in the correct order. <br>
+	*<b>Pos:</b>All Boxes have the correct number of box they are<br>
+	*@param current is the Box that is going to be assigned a number, current!=null.
+	*@param content is the Integer with the number that is going to have the box.
+	*@param row is the number of the row which the box is ubicated.
+	*/
 	public void assignNumbers(Box current, int content, int row) {//el primero será box1Ubication(Initial), 1, rows
 		current.setContent(String.valueOf(content));
 		current.setBoxNumber(content);
@@ -460,6 +529,15 @@ public class Grid{
 		
 	}	
 	
+	/**
+	* This method finds a box depending on an (x,y) coordenate. <br>
+	*<b>Pos:</b>The box has been found<br>
+	*@param boxActual is the box with the recursion is on, it starts with the initial Box, boxActual!=null.
+	*@param row is the integer of the number of the coordenate x.
+	*@param column is the integer number of the coordenate y.
+	*@param salir is the boolean that indicates if the box has been found.
+	*@return boxActual, is the box in the coordenate(row, column).
+	*/
 	public Box findBoxCoordenates(Box boxActual, int row, int column, boolean salir) {//INICIAL : (initial, rowx, columnx, false)
 		if(salir==false) {
 			//System.out.println("BUSCANDO EN COORDENADAS ("+row+","+column+") a partir de "+boxActual);
@@ -482,6 +560,12 @@ public class Grid{
 	}
 		
 	//Este método busca el primer elemento la última fila
+	/**
+	* This method finds the first element in the last row <br>
+	*<b>Pos:</b>The first box of the last row has been found<br>
+	*@param intialP is the initialBox.
+	*@return box1, is the box ubicated in the last row and in the first column.
+	*/
 	public Box box1Ubication(Box initialP) {
 		Box box1=initialP;
 		
@@ -493,6 +577,13 @@ public class Grid{
 		return box1;	
 	}		
 	
+	/**
+	* This method finds a box with the attribute boxNumber <br>
+	*<b>Pos:</b>The first box of the last row has been found<br>
+	*@param box is the initialBox.
+	*@param n is the number of the box looked for.
+	*@return box1, is the box with the number n.
+	*/	
 	public Box findBoxWithNumber(Box box, int n,boolean salir) {			
 		if (salir==false && box!=null) {
 			if (box.getBoxNumber()==n) {
@@ -508,6 +599,13 @@ public class Grid{
 		return box;		
 	}
 	
+	/**
+	* This method finds a box with the attribute boxNumber <br>
+	*<b>Pos:</b>The first box of the last row has been found<br>
+	*@param box is the initialBox.
+	*@param n is the number of the box looked for.
+	*@return box1, is the box with the number n.
+	*/	
 	private Box findBoxWithNumberPrev(Box box, int n, boolean salir) {
 		
 		if (salir==false && box!=null) {
@@ -525,7 +623,11 @@ public class Grid{
 	}
 
 	//Necesito hacer un método para recorrer toda la matriz e ir quitanto los números
-	
+	/**
+	* This method deletes the number of the box in the content<br>
+	*<b>Pos:</b>The Boxes content doesnt have its numbers<br>
+	*@param actualbox is the box to be cleaned the content.
+	*/	
 	public void deleteNumbersNext(Box actualBox) {	
 		if (actualBox==null) {
 			
@@ -562,6 +664,11 @@ public class Grid{
 		}			
 	}
 	
+	/**
+	* This method deletes the number of the box in the content<br>
+	*<b>Pos:</b>The Boxes content doesnt have its numbers<br>
+	*@param actualbox is the box to be cleaned the content.
+	*/	
 	public void deleteNumbersPrev(Box actualBox) {
 		if (actualBox==null) {
 			
@@ -599,7 +706,11 @@ public class Grid{
 	}
 		
 	
-		
+	/**
+	* This method finds the box with the bggest number<br>
+	*<b>Pos:</b>The Boxes with the biggest number has been found<br>
+	*@return biggestBox, is the biggestBox in the grid.
+	*/		
 	public Box findBiggestBox() {
 		Box big = findBoxCoordenates(initial,1,columns, false);
 
@@ -611,9 +722,11 @@ public class Grid{
 		return biggestBox;
 	}
 		
-		
-	
-	
+	/**
+	* This method prints the grid<br>
+	*<b>Pos:</b>The grid has been converted to a string<br>
+	*@return message, the grid in a string
+	*/		
 	public String toString() {
 		String message;
 		message=toStringRow(initial);
@@ -621,6 +734,11 @@ public class Grid{
 		
 	}
 
+	/**
+	* This method prints the row<br>
+	*<b>Pos:</b>The row has been converted to a string<br>
+	*@return message, the row in a string
+	*/	
 	private String toStringRow(Box row) {
 		String message="";
 		if(row!=null) {
@@ -630,7 +748,12 @@ public class Grid{
 		
 		return message;
 	}
-
+	
+	/**
+	* This method prints the column<br>
+	*<b>Pos:</b>The column has been converted to a string<br>
+	*@return message, the column in a string
+	*/	
 	private String toStringCol(Box current) {
 		String message="";
 		if(current!=null) {
@@ -638,15 +761,6 @@ public class Grid{
 			message+=toStringCol(current.getNext());
 		}
 		return message;
-	}
-
-
-	public String getPositionsGrid() {
-		return positionsGrid;
-	}
-
-	public void setPositionsGrid(String positionsGrid) {
-		this.positionsGrid = positionsGrid;
 	}
 
 	
