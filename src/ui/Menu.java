@@ -201,7 +201,6 @@ public class Menu {
 			}
 			
 			if (stop==false) {
-				//System.out.println("Presione enter para el siguiente turno");
 				stop = game.movePlayer(game.getAuxPlayer(),false);
 				System.out.println(game.getGrid().toString());
 
