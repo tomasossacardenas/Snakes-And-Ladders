@@ -36,10 +36,9 @@ public class WinnersController {
 	
 	public void showWinners(Player root) {//METODO INORDER
 		if(root!=null) {
-			System.out.println("LA RAIZ ES "+firstWinner.getNickName()+","+firstWinner.getMovements());
-			showWinners(root.getLeft());
-			System.out.println(root.getNickName()+","+root.getMovements());
 			showWinners(root.getRight());
+			System.out.println(root.getNickName()+" con "+root.getMovements()+" movimientos"+" y su simbolo es: "+root.getSymbol());
+			showWinners(root.getLeft());
 		}
 	}
 	
