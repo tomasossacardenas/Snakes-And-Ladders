@@ -25,8 +25,7 @@ The game will be doing that until a player fall in the last box when it is going
 - The program requires java language because is a console program, so if you have java download you will be able to play the game in the console.
 
 #Documentation
-- Classes Diagram pdf
-- Funtional requirements
+- [Classes Diagram and Functional Requirements pdf ](docs/Functional requirements and class diagram/Functional requirements and class diagram.pdf)
 
 #Credits
 We have based our linked list of boxes based on the explanation and code of the distinguished professor Juan Manuel Reyes in his explanatory video of doubly raised matrix.
