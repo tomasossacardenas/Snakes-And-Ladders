@@ -3,6 +3,7 @@ package ui;
 import java.util.Scanner;
 
 import model.Game;
+import model.Player;
 import model.WinnersController;
 
 public class Menu {
@@ -190,15 +191,6 @@ public class Menu {
 			System.out.println("Gracias por jugar!");
 			System.exit(0);
 			break;
-		case 4:
-			if(winners.getFirstWinner()!=null) {
-				winners.showWinners(winners.getFirstWinner());
-			}
-			else {
-				System.out.println("El arbol está vacío\n");
-			}
-			showAndChoose();
-			break;
 		default:
 			System.out.println("Opcion invalida, el numero de la opcion debe ser 1, 2 o 3");
 		}
@@ -262,17 +254,39 @@ public class Menu {
 			System.out.println("El jugador "+game.getWinner().getSymbol()+" ha ganado el juego, con "+game.getWinner().getMovements()+" movimientos");
 
 			System.out.println("Ingrese el nombre o el nickname del jugador ganador");
-			String namePlayer = entry.nextLine();			
+			String namePlayer = entry.nextLine();	
+			
 			game.getWinner().setNickName(namePlayer);
-
+			game.getWinner().setGame(game);
+			game.getWinner().setPuntaje(game.getWinner().getMovements()*(game.getGrid().getRows()*game.getGrid().getColumns()));
+			setWinnerRivalsSymbols(game.getFirstPlayer().getNextPlayer(), game.getWinner());
+			
 			winners.addWinner(winners.getFirstWinner(), game.getWinner());
 			gameOver=true;
 
 			showAndChoose();
 		}
 	}
+	
+	/**
+	 * <b>Name: </b>setWinnerRivalsSymbols <br>
+	 * This method set the String of rivalsSymbols of the winner<br>
+	 * <b>Pos: </b>The attribute rivalsSymbols of the winner has all symbols of his competitors
+	 * @param current is the player which is going to add its symbol
+	 * @param winner is the winner of the game, winner!=null.
+	 */
+	private void setWinnerRivalsSymbols(Player current, Player winner) {
+		if(current!=null) {
+			if(current==game.getFirstPlayer()) {
+				winner.setRivalsSymbols(winner.getRivalsSymbols()+" "+current.getSymbol());
+			}else {
+				winner.setRivalsSymbols(winner.getRivalsSymbols()+" "+current.getSymbol());
+				setWinnerRivalsSymbols(current.getNextPlayer(), winner);
+			}
+		}
+	}
 
-
+	
 
 
 }

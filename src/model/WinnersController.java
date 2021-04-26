@@ -22,7 +22,7 @@ public class WinnersController {
 			//System.out.println("SE CREO EL PRIMER WINNER");
 		}
 		else {
-			if(newWinner.getMovements()<=current.getMovements()) {// si es menor que el current
+			if(newWinner.getPuntaje()<=current.getPuntaje()) {// si es menor que el current
 				if(current.getLeft()==null) {//si aún no hay left entonces lo asigna
 					current.setLeft(newWinner);
 				}
@@ -51,7 +51,7 @@ public class WinnersController {
 	public void showWinners(Player root) {//METODO INORDER
 		if(root!=null) {
 			showWinners(root.getRight());
-			System.out.println(root.getNickName()+" con "+root.getMovements()+" movimientos"+" y su simbolo es: "+root.getSymbol());
+			System.out.println(root.getNickName()+" con "+root.getPuntaje()+" puntos"+" y su simbolo es: "+root.getSymbol());
 			showWinners(root.getLeft());
 		}
 	}

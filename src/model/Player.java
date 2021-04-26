@@ -4,9 +4,13 @@ public class Player {
 	//Attributes
 	private String nickname;
 	private String symbol;
-	private int movements;	
+	private int movements;
+	private double puntaje;
+	private String rivalsSymbols;
 	
 	//Relation
+	private Game game;
+	
 	private Box boxUbication;
 	private Player nextPlayer;
 	private Player left;
@@ -25,7 +29,8 @@ public class Player {
 		symbol = s;
 		movements = 0;
 		boxUbication = box;
-		
+		setPuntaje(0);
+		setRivalsSymbols("");
 	}
 	public void setNickName(String nickname) {
 		this.nickname = nickname;
@@ -78,6 +83,24 @@ public class Player {
 	}
 	public void setRight(Player right) {
 		this.right = right;
+	}
+	public Game getGame() {
+		return game;
+	}
+	public void setGame(Game game) {
+		this.game = game;
+	}
+	public String getRivalsSymbols() {
+		return rivalsSymbols;
+	}
+	public void setRivalsSymbols(String rivalsSymbols) {
+		this.rivalsSymbols = rivalsSymbols;
+	}
+	public double getPuntaje() {
+		return puntaje;
+	}
+	public void setPuntaje(double puntaje) {
+		this.puntaje = puntaje;
 	}
 	
 	
