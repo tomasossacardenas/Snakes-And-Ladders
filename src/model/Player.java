@@ -12,7 +12,14 @@ public class Player {
 	private Player left;
 	private Player right;
 	
-	
+
+	/**
+	 * <b>Name: </b>Player<br>
+	 * This method is the constructor of a Player.<br>
+	 * <b>Pos: </b> The Player was created successfully.<br>
+	 * @param s String. Symbol of the player.
+	 * @param box Box. Box where the player is.
+	 */
 	public Player(String s, Box box) {
 		nickname="";
 		symbol = s;

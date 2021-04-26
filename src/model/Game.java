@@ -12,11 +12,32 @@ public class Game {
 	private Player firstWinner;
 	
 	//Constructor #1
+	/**
+	 * <b>Name: </b>Game<br>
+	 * This method is the constructor #1 of the class. It is use when the user write the symbols of the players.<br>
+	 * <b>Pos: </b> The game was created successfully.
+	 * @param rows int. Amount of rows. rows!=0.
+	 * @param columns int. Amount of columns. columns!=0.
+	 * @param snakesNumber int. Amount of snakes. snakesNumber!=0.
+	 * @param laddersNumber int. Amount of ladder. laddersNumber!=0.
+	 * @param parts String. Symbols string. parts!="" Y parts!=null.
+	 */
 	public Game(int rows, int columns, int snakesNumber, int laddersNumber,String parts) {			
 		grid=new Grid(rows, columns, snakesNumber, laddersNumber);		
 		createPlayers(firstPlayer,parts,0,parts.length());
 	}
 	//Constructor #2
+	/**
+	 * <b>Name: </b>Game<br>
+	 * This method is the constructor #2 of the class. It is use when the user write the amount of players.<br>
+	 * <b>Pos: </b> The game was created successfully.
+	 * @param rows int. Amount of rows. rows!=0.
+	 * @param columns int. Amount of columns. columns!=0.
+	 * @param snakesNumber int. Amount of snakes. snakesNumber!=0.
+	 * @param laddersNumber int. Amount of ladder. laddersNumber!=0.
+	 * @param numberOfPlayers int. Amount of players. numberOfPlayers higher or equal to 1 and numberOfPlayers lower or equal to 8.
+	 */
+	
 	public Game(int rows, int columns, int snakesNumber, int laddersNumber,int numberOfPlayers) {			
 		grid=new Grid(rows, columns, snakesNumber, laddersNumber);		
 		createPlayers(firstPlayer,numberOfPlayers);
@@ -56,6 +77,16 @@ public class Game {
 		this.firstWinner = firstWinner;
 	}
 	
+	/**
+	 * <b>Name: </b>createPlayers.<br>
+	 * This method create the players with a random symbol because the user wrote the amount of players instead of the symbols of the players.<br>
+	 * <b>Pre: </b>The grid must already be created and must have the numbers.<br>
+	 * <b>Pre: </b>The user  wrote a number to create the players.
+	 * <b>Pos: </b>The players were created successfully.
+	 * @param actualPlayer Player. Previous player.<br>
+	 * @param numberOfPlayers int. Amount of players.<br>
+	 */
+	
 	private void createPlayers(Player actualPlayer, int numberOfPlayers) {
 		//* ! O X % $ # + &
 		String symbols="*!OX%$#+&"; //symbols.charAt(posicion)
@@ -82,7 +113,7 @@ public class Game {
 				//System.out.println("symbol pPlayer: "+pPlayer.getSymbol());
 				//System.out.println("symbol player: "+player.getSymbol());
 				actualPlayer.setNextPlayer(player);
-				player.setNextPlayer(actualPlayer);
+				//player.setNextPlayer(actualPlayer);
 
 				//player.setNextPlayer(firstPlayer);
 				lastPlayer = player;
@@ -100,6 +131,18 @@ public class Game {
 	}
 	
 	//Creo una lista circular de los jugadores
+	
+	/**
+	 * <b>Name: </b>createPlayers.<br>
+	 * This method create the amount of players according to the amount of symbols written by the user,  and each player has one of the symbols written by the user.<br>
+	 *	<b>Pre: </b>The grid must already be created and must have the numbers.<br>
+	 *<b>Pre: </b>The user  wrote a symbols string to create the players.
+	 * <b>Pos: </b>The players were created successfully.
+	 * @param pPlayer Player. Previous player.<br>
+	 * @param parts String. Word with the symbols.<br>
+	 * @param i int. Index of each symbol. Every time that a player is created, its value increases but it has to be less than the amount of symbols.<br>
+	 * @param p int. Amount of players. Every time that a player is created, its value decreases.<br>
+	 */
 	public void createPlayers(Player pPlayer,String parts,int i,int p) {
 		//* ! O X % $ # + &
 		int players = p; //
@@ -150,16 +193,28 @@ public class Game {
 		}			
 	}		
 	
+	
+	/**
+	 * <b>Name: </b>startGame.<br>
+	 * This method start the game because delete the numbers of the grid and show the new grid.
+	 */
 	public void startGame() {	
 		grid.deleteNumbersNext(grid.getInitial());
 		System.out.print(grid.toString());
 		
-		biggestBox = grid.findBiggestBox();
-	
-		//System.out.println(">>>>>>Casilla con el valor mas grande: "+biggestBox.getBoxNumber());
-	
+		biggestBox = grid.findBiggestBox();	
 	}
 	
+	
+	/**
+	 * <b>Name: </b>movePlayer.<br>
+	 * This method move player by player according to the value of the dice. To move the next player, is necessary a line break<br>
+	 * <b>Pre: </b> The players must already be created.<br>
+	 * <b>Pos: </b> The player was moved successfully.
+	 * @param player Player. Next Player.
+	 * @param end boolean. Indicate if there is a player in the last box.
+	 * @return stop boolean. It will be true when a player gets to the last box and the game will end.
+	 */
 	public boolean movePlayer(Player player,boolean end) {		
 		boolean stop=end;
 			
@@ -313,7 +368,15 @@ public class Game {
 
 	
 	
-	
+	/**
+	 * <b>Name: </b>simul.<br>
+	 * This method is the simulation mode where the game play by itself. This method doesn't need a line break to continue<br>
+	 * The simulation model will end when a player gets to the last box.<br>
+	 * <b>Pre: </b> The players must already be created.<br>
+	 * <b>Pos: </b> The players played successfully.
+	 * @param player Player. Next Player.
+	 * @param end boolean. Indicate if there is a player in the last box.
+	 */
 	public void simul(Player player,boolean end) {		
 		boolean stop=end;
 			

@@ -18,6 +18,14 @@ public class Box {
 	
 	
 	//Constructor
+	/**
+	 * <b>Name: </b>Box<br>
+	 * This method is the constructor of a Box.<br>
+	 * <b>Pos: </b> The box was created successfully.<br>
+	 * @param row int. Row where the box is.
+	 * @param column int. Column where the box is.
+	 * @param content String. Content of the Box.
+	 */
 	public Box(int row, int column, String content) {
 		this.row=row;
 		this.column=column;
@@ -99,6 +107,12 @@ public class Box {
 		this.snake = snake;
 	}
 	
+	/**
+	* <b>Name: </b>toString<br>
+	* This method prints the content of the Box<br>
+	*<b>Pos:</b> The content of the Box was shown<br>
+	*@return the content of the Box.
+	*/
 	public String toString() {
 		return "["+this.content+"]";
 		

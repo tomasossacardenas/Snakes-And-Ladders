@@ -11,6 +11,11 @@ public class Snake {
 	private Snake previous;
 	
 	//Constructor
+	/**
+	 * <b>Name: </b>Snake<br>
+	 * This method is the constructor of a Snake.<br>
+	 * <b>Pos: </b> The Snake was created successfully.<br>
+	 */
 	public Snake() {
 		this.start=null;
 		this.end=null;
@@ -47,7 +52,12 @@ public class Snake {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	
+	/**
+	* <b>Name: </b>toString<br>
+	* This method prints the content of the snake<br>
+	*<b>Pos:</b> The content of the snake was shown<br>
+	*@return the content of the snake.
+	*/	
 	public String toString() {
 		return this.content;
 	}

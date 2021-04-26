@@ -11,6 +11,11 @@ public class Ladder {
 	private Ladder previous;
 	
 	//Constructor
+	/**
+	 * <b>Name: </b>Ladder<br>
+	 * This method is the constructor of a Ladder.<br>
+	 * <b>Pos: </b> The Ladder was created successfully.<br>
+	 */
 	public Ladder() {
 		this.start=null;
 		this.end=null;
@@ -47,6 +52,12 @@ public class Ladder {
 		this.content = content;
 	}
 	
+	/**
+	* <b>Name: </b>toString<br>
+	* This method prints the content of the ladder<br>
+	*<b>Pos:</b> The content of the ladder was shown<br>
+	*@return the content of the ladder.
+	*/	
 	public String toString() {
 		return this.content;
 	}
